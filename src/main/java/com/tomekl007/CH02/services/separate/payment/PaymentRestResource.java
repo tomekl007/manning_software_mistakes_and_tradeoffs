@@ -1,7 +1,6 @@
 package com.tomekl007.CH02.services.separate.payment;
 
 import java.io.IOException;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -16,17 +15,16 @@ import javax.ws.rs.core.Response.Status;
 @Consumes(MediaType.APPLICATION_JSON)
 public class PaymentRestResource {
 
-	private final PaymentService paymentService = new PaymentService();
-	private final AuthService authService = new AuthService();
+  private final PaymentService paymentService = new PaymentService();
+  private final AuthService authService = new AuthService();
 
-	@GET
-	@Path("/{token}")
-	public Response getAllPayments(@PathParam("token") String token) throws IOException {
-		if(authService.validToken(token)) {
-			return Response.ok(paymentService.getAllPayments()).build();
-		}else{
-			return Response.status(Status.UNAUTHORIZED).build();
-		}
-	}
-
+  @GET
+  @Path("/{token}")
+  public Response getAllPayments(@PathParam("token") String token) throws IOException {
+    if (authService.validToken(token)) {
+      return Response.ok(paymentService.getAllPayments()).build();
+    } else {
+      return Response.status(Status.UNAUTHORIZED).build();
+    }
+  }
 }

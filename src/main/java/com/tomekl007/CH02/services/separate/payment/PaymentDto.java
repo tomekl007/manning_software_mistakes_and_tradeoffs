@@ -1,12 +1,12 @@
 package com.tomekl007.CH02.services.separate.payment;
 
 public class PaymentDto {
-	private final String userId;
-	private final int amount;
+  private final String userId;
+  private final int amount;
 
-	public PaymentDto(String userId, int amount) {
+  public PaymentDto(String userId, int amount) {
 
-		this.userId = userId;
-		this.amount = amount;
-	}
+    this.userId = userId;
+    this.amount = amount;
+  }
 }
