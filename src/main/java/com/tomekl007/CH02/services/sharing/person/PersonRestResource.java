@@ -14,14 +14,14 @@ import javax.ws.rs.core.Response.Status;
 @Consumes(MediaType.APPLICATION_JSON)
 public class PersonRestResource {
 
-  private final PersonService paymentService = new PersonService();
+  private final PersonService personService = new PersonService();
   private final AuthService authService = new AuthService();
 
   @GET
   @Path("/{token}/{id}")
   public Response getPersonById(@PathParam("token") String token, @PathParam("id") String id) {
     if (authService.validToken(token)) {
-      return Response.ok(paymentService.getById(id)).build();
+      return Response.ok(personService.getById(id)).build();
     } else {
       return Response.status(Status.UNAUTHORIZED).build();
     }
