@@ -21,7 +21,7 @@ public class PaymentRestResource {
   @GET
   @Path("/{token}")
   public Response getAllPayments(@PathParam("token") String token) {
-    if (authService.validToken(token)) {
+    if (authService.isTokenValid(token)) {
       return Response.ok(paymentService.getAllPayments()).build();
     } else {
       return Response.status(Status.UNAUTHORIZED).build();
