@@ -1,6 +1,5 @@
 package com.tomekl007.CH02.services.separate.auth;
 
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
