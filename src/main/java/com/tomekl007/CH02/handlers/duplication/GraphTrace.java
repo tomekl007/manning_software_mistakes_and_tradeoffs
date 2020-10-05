@@ -1,10 +1,10 @@
-package com.tomekl007.CH02.handlers;
+package com.tomekl007.CH02.handlers.duplication;
 
-public class Trace {
+public class GraphTrace {
   private final boolean isTraceEnabled;
-  private final String data;
+  private final int data;
 
-  public Trace(boolean isTraceEnabled, String data) {
+  public GraphTrace(boolean isTraceEnabled, int data) {
     this.isTraceEnabled = isTraceEnabled;
     this.data = data;
   }
@@ -13,7 +13,7 @@ public class Trace {
     return isTraceEnabled;
   }
 
-  public String getData() {
+  public int getData() {
     return data;
   }
 }

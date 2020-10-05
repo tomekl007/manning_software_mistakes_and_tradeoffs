@@ -1,18 +1,18 @@
-package com.tomekl007.CH02.handlers.duplication;
+package com.tomekl007.CH02.handlers.inheritence;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TraceRequestHandler {
+public abstract class BaseTraceRequestHandler<T extends TraceRequest> {
   private final int bufferSize;
   private boolean processed = false;
   List<String> buffer = new ArrayList<>();
 
-  public TraceRequestHandler(int bufferSize) {
+  public BaseTraceRequestHandler(int bufferSize) {
     this.bufferSize = bufferSize;
   }
 
-  public void processRequest(Trace trace) {
+  public void processRequest(T trace) {
     if (!processed && !trace.isTraceEnabled()) {
       return;
     }
@@ -25,9 +25,7 @@ public class TraceRequestHandler {
     }
   }
 
-  private String createPayload(Trace graphTrace) {
-    return graphTrace.getData() + "-content";
-  }
+  protected abstract String createPayload(T graphTrace);
 
   public boolean isProcessed() {
     return processed;
