@@ -25,8 +25,8 @@ public class TraceRequestHandler {
     }
   }
 
-  private String createPayload(Trace graphTrace) {
-    return graphTrace.getData() + "-content";
+  private String createPayload(Trace trace) {
+    return trace.getData() + "-content";
   }
 
   public boolean isProcessed() {
