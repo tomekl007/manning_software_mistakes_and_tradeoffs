@@ -14,7 +14,7 @@ public class CatchAllTest {
   @Test
   public void shouldCatchAtNormalGranularity() {
     try {
-      methodThatThrowsChecked();
+      methodThatThrowsCheckedException();
     } catch (FileAlreadyExistsException e) {
       logger.error("File already exists: ", e);
     } catch (InterruptedException e) {
@@ -25,7 +25,7 @@ public class CatchAllTest {
   @Test
   public void shouldCatchAtHigherGranularity() {
     try {
-      methodThatThrowsChecked();
+      methodThatThrowsCheckedException();
     } catch (IOException e) {
       logger.error("Some IO problem: ", e);
     } catch (InterruptedException e) {
@@ -36,7 +36,7 @@ public class CatchAllTest {
   @Test
   public void shouldCatchAtCatchAll() {
     try {
-      methodThatThrowsChecked();
+      methodThatThrowsCheckedException();
     } catch (Exception e) {
       logger.error("Problem ", e);
     }
@@ -45,18 +45,18 @@ public class CatchAllTest {
   @Test
   public void shouldCatchRuntimeAtCatchAll() {
     try {
-      methodThatThrowsUnchecked();
+      methodThatThrowsUncheckedException();
     } catch (Exception e) {
       logger.error("Problem ", e);
     }
   }
 
   @Test
-  public void shouldCatchAtNormalGranularityRuntimeWillBeNotCatched() {
+  public void shouldCatchAtNormalGranularityRuntimeWillBeNotCatch() {
     assertThatThrownBy(
             () -> {
               try {
-                methodThatThrowsUnchecked();
+                methodThatThrowsUncheckedException();
               } catch (FileAlreadyExistsException e) {
                 logger.error("File already exists: ", e);
               } catch (InterruptedException e) {
@@ -66,9 +66,11 @@ public class CatchAllTest {
         .isInstanceOf(RuntimeException.class);
   }
 
-  public void methodThatThrowsChecked() throws FileAlreadyExistsException, InterruptedException {}
+  public void methodThatThrowsCheckedException()
+      throws FileAlreadyExistsException, InterruptedException {}
 
-  public void methodThatThrowsUnchecked() throws FileAlreadyExistsException, InterruptedException {
+  public void methodThatThrowsUncheckedException()
+      throws FileAlreadyExistsException, InterruptedException {
     throw new RuntimeException("Unchecked exception!");
   }
 }
