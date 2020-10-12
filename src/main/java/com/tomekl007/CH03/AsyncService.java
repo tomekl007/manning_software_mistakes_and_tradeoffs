@@ -19,14 +19,13 @@ public class AsyncService {
 
   public CompletableFuture<Integer> asyncExternalCallImproved() {
     CompletableFuture<Integer> result = new CompletableFuture<>();
-    CompletableFuture.supplyAsync(
+    CompletableFuture.runAsync(
         () -> {
           try {
             result.complete(externalCall());
           } catch (IOException e) {
             result.completeExceptionally(e);
           }
-          return null;
         });
     return result;
   }
