@@ -15,12 +15,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Fork(1)
-@Warmup(iterations = 2)
-@Measurement(iterations = 10)
+@Warmup(iterations = 1)
+@Measurement(iterations = 1)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 public class ExceptionsPerformanceBenchmark {
-	private static final int NUMBER_OF_ITERATIONS = 10_000;
+	private static final int NUMBER_OF_ITERATIONS = 50_000;
 	private static final Logger logger = LoggerFactory.getLogger(ExceptionsPerformanceBenchmark.class);
 
 	@Benchmark
@@ -44,18 +44,6 @@ public class ExceptionsPerformanceBenchmark {
 	public void tryMonad(Blackhole blackhole) {
 		for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
 			blackhole.consume(Try.of(() -> { throw new Exception();}));
-		}
-	}
-
-	@Benchmark
-	@Fork(value = 1, jvmArgs = "-XX:-StackTraceInThrowable")
-	public void throwCatchDisableStackTrace(Blackhole blackhole) {
-		for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-			try {
-				throw new Exception();
-			} catch (Exception e) {
-				blackhole.consume(e);
-			}
 		}
 	}
 
