@@ -1,8 +1,10 @@
-package com.tomekl007.CH04;
+package com.tomekl007.CH04.listeners;
 
 import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -22,6 +24,7 @@ public class HttpClientExecution {
   private final Meter failureMeter;
 
   private final Meter retryCounter;
+  private final List<OnRetryListener> retryListeners = new ArrayList<>();
 
   public HttpClientExecution(
       MetricRegistry metricRegistry, int numberOfRetries, CloseableHttpClient client) {
@@ -32,7 +35,12 @@ public class HttpClientExecution {
     this.client = client;
   }
 
+  public void registerOnRetryListener(OnRetryListener onRetryListener) {
+    retryListeners.add(onRetryListener);
+  }
+
   public void executeWithRetry(String path) {
+    List<RetryStatus> retryStatuses = new ArrayList<>();
     for (int i = 0; i <= numberOfRetries; i++) {
       try {
         execute(path);
@@ -45,14 +53,21 @@ public class HttpClientExecution {
           logger.error("This is the last retry, failing.");
           throw new RuntimeException(e);
         } else {
+          retryStatuses.add(new RetryStatus(i));
           logger.info("Retry once again.");
           retryCounter.mark();
         }
       }
+      // propagate the copy of an actual retryStatuses
+      retryListeners.forEach(l -> l.onRetry(new ArrayList<>(retryStatuses)));
+
+      // or fail fast and propagate a collection that does not support any modification
+      //			retryListeners.forEach(l -> l.onRetry(ImmutableList.copyOf(retryStatuses)));
     }
   }
 
   private void execute(String path) throws IOException {
+    logger.info("Executing request for: {}", path);
     CloseableHttpResponse execute = client.execute(new HttpPost(path));
     if (execute.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
       successMeter.mark();
