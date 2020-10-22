@@ -1,8 +1,7 @@
 package com.tomekl007.CH03;
 
-import java.util.concurrent.TimeUnit;
-
 import io.vavr.control.Try;
+import java.util.concurrent.TimeUnit;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
@@ -20,52 +19,58 @@ import org.slf4j.LoggerFactory;
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 public class ExceptionsPerformanceBenchmark {
-	private static final int NUMBER_OF_ITERATIONS = 50_000;
-	private static final Logger logger = LoggerFactory.getLogger(ExceptionsPerformanceBenchmark.class);
+  private static final int NUMBER_OF_ITERATIONS = 50_000;
+  private static final Logger logger =
+      LoggerFactory.getLogger(ExceptionsPerformanceBenchmark.class);
 
-	@Benchmark
-	public void baseline(Blackhole blackhole) {
-		for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-			blackhole.consume(new Object());
-		}
-	}
-	@Benchmark
-	public void throwCatch(Blackhole blackhole) {
-		for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-			try {
-				throw new Exception();
-			} catch (Exception e) {
-				blackhole.consume(e);
-			}
-		}
-	}
+  @Benchmark
+  public void baseline(Blackhole blackhole) {
+    for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
+      blackhole.consume(new Object());
+    }
+  }
 
-	@Benchmark
-	public void tryMonad(Blackhole blackhole) {
-		for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-			blackhole.consume(Try.of(() -> { throw new Exception();}));
-		}
-	}
+  @Benchmark
+  public void throwCatch(Blackhole blackhole) {
+    for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
+      try {
+        throw new Exception();
+      } catch (Exception e) {
+        blackhole.consume(e);
+      }
+    }
+  }
 
-	@Benchmark
-	public void getStackTrace(Blackhole blackhole) {
-		for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-			try {
-				throw new Exception();
-			} catch (Exception e) {
-				blackhole.consume(e.getStackTrace());
-			}
-		}
-	}
+  @Benchmark
+  public void tryMonad(Blackhole blackhole) {
+    for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
+      blackhole.consume(
+          Try.of(
+              () -> {
+                throw new Exception();
+              }));
+    }
+  }
 
-	@Benchmark
-	public void logError() {
-		for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-			try {
-				throw new Exception();
-			} catch (Exception e) {
-				logger.error("Error", e);
-			}
-		}
-	}
+  @Benchmark
+  public void getStackTrace(Blackhole blackhole) {
+    for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
+      try {
+        throw new Exception();
+      } catch (Exception e) {
+        blackhole.consume(e.getStackTrace());
+      }
+    }
+  }
+
+  @Benchmark
+  public void logError() {
+    for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
+      try {
+        throw new Exception();
+      } catch (Exception e) {
+        logger.error("Error", e);
+      }
+    }
+  }
 }
