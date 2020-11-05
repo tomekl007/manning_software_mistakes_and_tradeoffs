@@ -17,11 +17,11 @@ import javax.ws.rs.core.Response.Status;
 @Path("/accounts")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class AccountsService {
+public class AccountsController {
   private final DefaultSupportedAccountsLoader defaultSupportedAccountsLoader;
   private final DefaultNamingService defaultNamingService;
 
-  public AccountsService() {
+  public AccountsController() {
     java.nio.file.Path defaultPath =
         Paths.get(
             Objects.requireNonNull(getClass().getClassLoader().getResource("accounts.yaml"))
