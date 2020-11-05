@@ -1,0 +1,7 @@
+accounts:
+  -
+    name: Tom
+    id: 1
+  -
+    name: Mike
+    id: 2
