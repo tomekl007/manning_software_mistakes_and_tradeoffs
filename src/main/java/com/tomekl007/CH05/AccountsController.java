@@ -8,8 +8,8 @@ import java.util.Optional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -40,8 +40,8 @@ public class AccountsController {
   }
 
   @GET
-  @Path("/validate/{id}")
-  public Response validateAccount(@PathParam("token") Integer id) {
+  @Path("/validate")
+  public Response validateAccount(@QueryParam("id") Integer id) {
     Optional<Account> account = defaultSupportedAccountsLoader.account(id);
     if (!account.isPresent()) {
       return Response.status(Status.NOT_FOUND).build();
