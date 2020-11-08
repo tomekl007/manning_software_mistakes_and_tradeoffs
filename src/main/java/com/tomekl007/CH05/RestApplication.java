@@ -8,8 +8,8 @@ public class RestApplication extends Application<Configuration> {
 
   @Override
   public void run(Configuration configuration, Environment environment) {
-    AccountsController accountsController = new AccountsController();
-    environment.jersey().register(accountsController);
+    WordsController wordsController = new WordsController();
+    environment.jersey().register(wordsController);
   }
 
   // it will be accessible under
