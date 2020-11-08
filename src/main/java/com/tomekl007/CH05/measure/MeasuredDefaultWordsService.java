@@ -1,5 +1,8 @@
-package com.tomekl007.CH05.initial;
+package com.tomekl007.CH05.measure;
 
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.SharedMetricRegistries;
+import com.codahale.metrics.Timer;
 import com.google.common.annotations.VisibleForTesting;
 import com.tomekl007.CH05.WordsService;
 import java.io.FileNotFoundException;
@@ -8,24 +11,29 @@ import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.function.Supplier;
 
-public class DefaultWordsService implements WordsService {
+public class MeasuredDefaultWordsService implements WordsService {
 
   private static final int MULTIPLY_FACTOR = 100;
   private static final Supplier<Integer> DEFAULT_INDEX_PROVIDER =
-      DefaultWordsService::getIndexForToday;
+      MeasuredDefaultWordsService::getIndexForToday;
 
   private Path filePath;
 
   private Supplier<Integer> indexProvider;
 
-  public DefaultWordsService(Path filePath) {
-    this(filePath, DEFAULT_INDEX_PROVIDER);
+  private MetricRegistry metricRegistry;
+
+  // to see metrics see, http://localhost:8081/metrics?pretty=true
+  public MeasuredDefaultWordsService(Path filePath) {
+    this(filePath, DEFAULT_INDEX_PROVIDER, SharedMetricRegistries.getDefault());
   }
 
   @VisibleForTesting
-  public DefaultWordsService(Path filePath, Supplier<Integer> indexProvider) {
+  public MeasuredDefaultWordsService(
+      Path filePath, Supplier<Integer> indexProvider, MetricRegistry metricRegistry) {
     this.filePath = filePath;
     this.indexProvider = indexProvider;
+    this.metricRegistry = metricRegistry;
   }
 
   @Override
@@ -52,17 +60,25 @@ public class DefaultWordsService implements WordsService {
   @Override
   public boolean wordExists(String word) {
     try {
-      Scanner scanner = new Scanner(filePath.toFile());
-      while (scanner.hasNextLine()) {
-        String line = scanner.nextLine();
-        if (word.equals(line)) {
-          return true;
-        }
-      }
-    } catch (FileNotFoundException e) {
+      Timer loadFile = metricRegistry.timer("loadFile");
+      Scanner scanner = loadFile.time(() -> new Scanner(filePath.toFile()));
+
+      // scan is more costly, how to optimize it?
+      Timer scan = metricRegistry.timer("scan");
+      return scan.time(
+          () -> {
+            while (scanner.hasNextLine()) {
+              String line = scanner.nextLine();
+              if (word.equals(line)) {
+                return true;
+              }
+            }
+            return false;
+          });
+
+    } catch (Exception e) {
       throw new RuntimeException("Problem in wordExists for word: " + word, e);
     }
-    return false;
   }
 
   private static int getIndexForToday() {

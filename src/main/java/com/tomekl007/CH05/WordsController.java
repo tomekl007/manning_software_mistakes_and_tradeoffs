@@ -1,6 +1,6 @@
 package com.tomekl007.CH05;
 
-import com.tomekl007.CH05.initial.DefaultWordsService;
+import com.tomekl007.CH05.measure.MeasuredDefaultWordsService;
 import java.nio.file.Paths;
 import java.util.Objects;
 import javax.ws.rs.Consumes;
@@ -22,7 +22,7 @@ public class WordsController {
     java.nio.file.Path defaultPath =
         Paths.get(
             Objects.requireNonNull(getClass().getClassLoader().getResource("words.txt")).getPath());
-    wordsService = new DefaultWordsService(defaultPath);
+    wordsService = new MeasuredDefaultWordsService(defaultPath);
   }
 
   // we are expecting that according to the pareto principle, the majority of traffic will go to
