@@ -1,9 +1,9 @@
 package com.tomekl007.CH05.initial;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.tomekl007.CH05.Account;
+import com.tomekl007.CH05.DefaultSupportedAccountsLoader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;

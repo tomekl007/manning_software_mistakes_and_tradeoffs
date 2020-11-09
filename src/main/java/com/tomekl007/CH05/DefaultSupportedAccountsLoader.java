@@ -1,10 +1,7 @@
-package com.tomekl007.CH05.initial;
+package com.tomekl007.CH05;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.tomekl007.CH05.Account;
-import com.tomekl007.CH05.Accounts;
-import com.tomekl007.CH05.SupportedAccountsLoader;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Path;
