@@ -44,8 +44,7 @@ public class WordsController {
   // It does it every time. It is on the hot path!
   // It should be optimized.
   // Add metrics around loading file and iterating over results.
-  // Show optimizations using cache. whole file by loading it every n second.
-  // Also per lines. Key is word value info if it does exists.
+  // Show optimizations using cache per words. Key is word value info if it does exists.
   // 3rd optimization - add regrxp that pre checks if the provided line has alpha numeric.
   // Jmh every variant. Finally show the Gatling benchmark that shows how hot path was optimized.
 

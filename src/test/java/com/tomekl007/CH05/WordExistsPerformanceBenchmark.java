@@ -1,5 +1,6 @@
 package com.tomekl007.CH05;
 
+import com.tomekl007.CH05.cache.CachedWordsService;
 import com.tomekl007.CH05.initial.DefaultWordsService;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,18 +19,31 @@ import org.openjdk.jmh.infra.Blackhole;
 
 @Fork(1)
 @Warmup(iterations = 1)
-@Measurement(iterations = 10)
+@Measurement(iterations = 1)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 public class WordExistsPerformanceBenchmark {
+  private static final int NUMBER_OF_CHECKS = 100;
   private static final List<String> WORDS_TO_CHECK =
       Arrays.asList("made", "ask", "find", "zones", "1ask", "123");
 
   @Benchmark
   public void baseline(Blackhole blackhole) {
-    DefaultWordsService defaultWordsService = new DefaultWordsService(getWordsPath());
-    for (String word : WORDS_TO_CHECK) {
-      blackhole.consume(defaultWordsService.wordExists(word));
+    WordsService defaultWordsService = new DefaultWordsService(getWordsPath());
+    for (int i = 0; i < NUMBER_OF_CHECKS; i++) {
+      for (String word : WORDS_TO_CHECK) {
+        blackhole.consume(defaultWordsService.wordExists(word));
+      }
+    }
+  }
+
+  @Benchmark
+  public void cache(Blackhole blackhole) {
+    WordsService defaultWordsService = new CachedWordsService(getWordsPath());
+    for (int i = 0; i < NUMBER_OF_CHECKS; i++) {
+      for (String word : WORDS_TO_CHECK) {
+        blackhole.consume(defaultWordsService.wordExists(word));
+      }
     }
   }
 
