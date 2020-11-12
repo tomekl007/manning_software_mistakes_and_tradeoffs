@@ -13,7 +13,7 @@ public class RestApplication extends Application<Configuration> {
   }
 
   // it will be accessible under
-  // http://localhost:8080/accounts/all
+  // http://localhost:8080/words
   public static void main(String[] args) throws Exception {
     new RestApplication().run("server");
   }
