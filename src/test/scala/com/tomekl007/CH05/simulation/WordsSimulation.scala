@@ -27,10 +27,10 @@ class WordsSimulation extends Simulation {
 
   setUp(
     wordOfTheDayScenario.inject(
-      constantUsersPerSec(1) during (1 minutes)
+      constantUsersPerSec(5) during (1 minutes)
     ),
     validateScenario.inject(
-      constantUsersPerSec(29) during (1 minutes)
+      constantUsersPerSec(20) during (1 minutes)
   )).protocols(httpProtocol)
 
 

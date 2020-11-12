@@ -25,29 +25,24 @@ public class WordsController {
     wordsService = new MeasuredDefaultWordsService(defaultPath);
   }
 
-  // we are expecting that according to the pareto principle, the majority of traffic will go to
-  // this endpoint and our SLA is confirming that
-
-  // Word of the day. It returns the one word from the file, and it is called once per day.
-  // It is very naive - gets the date as number, add Fixed offset And returns the same word.
-  // It loads the file and iterate over every line until it met the line with number.
-  // Not optimal, easy to optimize but not hot path! We don’t need to prematurely optimize it.
+  // Word of the day. It returns the one Word from the file, and it is called once per day.
+  // It is very naive - gets the date as a number, adds fixed offset, and returns the same Word.
+  // It loads the file and iterates over every line until it met the line with a number.
+  // Not optimal, easy to optimize but not a hot path! We don’t need to optimize it prematurely.
   @GET
   @Path("/word-of-the-day")
   public Response getAllAccounts() {
     return Response.ok(wordsService.getWordOfTheDay()).build();
   }
 
-  // Validate if word exists in the dictionary.
+  // we are expecting that according to the Pareto principle, the majority of traffic will go to
+  // this endpoint and our SLA is confirming that
+
+  // Validate if a word exists in the dictionary.
   // Called hundred times per second.
-  // First version iterates over file and check if the line exists.
+  // First version iterates over a file and checks if the line exists.
   // It does it every time. It is on the hot path!
   // It should be optimized.
-  // Add metrics around loading file and iterating over results.
-  // Show optimizations using cache per words. Key is word value info if it does exists.
-  // 3rd optimization - add regrxp that pre checks if the provided line has alpha numeric.
-  // Jmh every variant. Finally show the Gatling benchmark that shows how hot path was optimized.
-
   @GET
   @Path("/word-exists")
   public Response validateAccount(@QueryParam("word") String word) {
