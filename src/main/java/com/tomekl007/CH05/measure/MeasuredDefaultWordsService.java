@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.function.Supplier;
 
+/** Metrics are available here: http://localhost:8081/metrics?pretty=true */
 public class MeasuredDefaultWordsService implements WordsService {
 
   private static final int MULTIPLY_FACTOR = 100;
