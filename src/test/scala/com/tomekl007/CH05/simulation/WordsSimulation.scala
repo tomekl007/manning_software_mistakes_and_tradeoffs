@@ -37,7 +37,7 @@ class WordsSimulation extends Simulation {
 }
 
 object WordOfTheDay {
-  val get = http("word-of-the-day").get("/word-of-the-day")
+  val get = http("word-of-the-day").get("/word-of-the-day").check(status is 200)
 
 }
 
