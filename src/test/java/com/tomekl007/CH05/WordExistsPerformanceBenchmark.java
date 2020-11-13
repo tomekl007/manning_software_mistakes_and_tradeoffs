@@ -17,6 +17,9 @@ import org.openjdk.jmh.annotations.OutputTimeUnit;
 import org.openjdk.jmh.annotations.Warmup;
 import org.openjdk.jmh.infra.Blackhole;
 
+/**
+ * To start this benchmark, run the {@link WordExistsPerformanceTestRunner#main(String[])} method}
+ */
 @Fork(1)
 @Warmup(iterations = 1)
 @Measurement(iterations = 1)
