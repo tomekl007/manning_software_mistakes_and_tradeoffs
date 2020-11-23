@@ -43,6 +43,15 @@ public class CatchAllTest {
   }
 
   @Test
+  public void shouldCatchUsingMultiCatch() {
+    try {
+      methodThatThrowsCheckedException();
+    } catch (IOException | InterruptedException e) {
+      logger.error("Problem ", e);
+    }
+  }
+
+  @Test
   public void shouldCatchRuntimeAtCatchAll() {
     try {
       methodThatThrowsUncheckedException();
