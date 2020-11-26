@@ -39,7 +39,7 @@ public class HttpClientExecution {
         // success - return
         return;
       } catch (IOException e) {
-        logger.error("Problem when sending request for retry nr: " + i, e);
+        logger.error("Problem when sending request for retry number: " + i, e);
         failureMeter.mark();
         if (numberOfRetries == i) {
           logger.error("This is the last retry, failing.");
