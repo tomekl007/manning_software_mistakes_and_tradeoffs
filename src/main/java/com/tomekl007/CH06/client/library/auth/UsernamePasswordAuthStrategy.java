@@ -1,5 +1,6 @@
 package com.tomekl007.CH06.client.library.auth;
 
+import com.tomekl007.CH06.Request;
 import java.util.Objects;
 
 public class UsernamePasswordAuthStrategy implements AuthStrategy {
@@ -12,12 +13,12 @@ public class UsernamePasswordAuthStrategy implements AuthStrategy {
   }
 
   @Override
-  public boolean authenticate(AuthRequest authRequest) {
-    if (authRequest.getUsername() == null || authRequest.getPassword() == null) {
+  public boolean authenticate(Request request) {
+    if (request.getUsername() == null || request.getPassword() == null) {
       return false;
     }
 
-    return authRequest.getUsername().equals(username) && authRequest.getPassword().equals(password);
+    return request.getUsername().equals(username) && request.getPassword().equals(password);
   }
 
   @Override

@@ -1,0 +1,7 @@
+auth:
+  strategy: username-password
+  username: u
+  password: p
+
+batch:
+  size: 100

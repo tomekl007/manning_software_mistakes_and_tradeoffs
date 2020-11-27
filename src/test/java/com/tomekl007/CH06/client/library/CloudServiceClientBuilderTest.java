@@ -26,7 +26,7 @@ class CloudServiceClientBuilderTest {
         new CloudServiceClientBuilder().create(path);
 
     // then
-    assertThat(defaultCloudServiceClient.cloudServiceConfiguration.authStrategy)
+    assertThat(defaultCloudServiceClient.getCloudServiceConfiguration().getAuthStrategy())
         .isEqualTo(new UsernamePasswordAuthStrategy("user", "pass"));
   }
 
@@ -44,7 +44,7 @@ class CloudServiceClientBuilderTest {
         new CloudServiceClientBuilder().create(path);
 
     // then
-    assertThat(defaultCloudServiceClient.cloudServiceConfiguration.authStrategy)
+    assertThat(defaultCloudServiceClient.getCloudServiceConfiguration().getAuthStrategy())
         .isEqualTo(new TokenAuthStrategy("c8933754-30a0-11eb-adc1-0242ac120002"));
   }
 }

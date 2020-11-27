@@ -1,5 +1,6 @@
 package com.tomekl007.CH06.client.library.auth;
 
+import com.tomekl007.CH06.Request;
 import java.util.Objects;
 
 public class TokenAuthStrategy implements AuthStrategy {
@@ -10,11 +11,11 @@ public class TokenAuthStrategy implements AuthStrategy {
   private final String token;
 
   @Override
-  public boolean authenticate(AuthRequest authRequest) {
-    if (authRequest.getToken() == null) {
+  public boolean authenticate(Request request) {
+    if (request.getToken() == null) {
       return false;
     }
-    return authRequest.getToken().equals(token);
+    return request.getToken().equals(token);
   }
 
   @Override
