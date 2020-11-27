@@ -1,0 +1,5 @@
+streaming:
+  username: u
+  password: p
+  maxTimeMs: 100
+  connectionTimeout: 1000
