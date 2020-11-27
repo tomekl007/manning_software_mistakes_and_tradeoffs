@@ -29,6 +29,10 @@ public class CloudServiceClientBuilder {
                 HashMap.class, mapper.getTypeFactory().constructType(String.class), mapType);
   }
 
+  public DefaultCloudServiceClient create(CloudServiceConfiguration cloudServiceConfiguration) {
+    return new DefaultCloudServiceClient(cloudServiceConfiguration);
+  }
+
   public DefaultCloudServiceClient create(Path configFilePath) {
     try {
 

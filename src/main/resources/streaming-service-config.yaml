@@ -1,0 +1,4 @@
+streaming:
+  username: u
+  password: p
+  maxTimeMs: 100
