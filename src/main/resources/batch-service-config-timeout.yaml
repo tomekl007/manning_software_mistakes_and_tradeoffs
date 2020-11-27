@@ -1,0 +1,10 @@
+auth:
+  strategy: username-password
+  username: u
+  password: p
+
+timeouts:
+  connection: 1000
+
+batch:
+  size: 100

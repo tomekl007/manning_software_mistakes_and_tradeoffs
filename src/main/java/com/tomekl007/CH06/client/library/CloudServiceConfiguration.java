@@ -4,7 +4,7 @@ import com.tomekl007.CH06.client.library.auth.AuthStrategy;
 import java.util.Objects;
 
 public class CloudServiceConfiguration {
-  public final AuthStrategy authStrategy;
+  private final AuthStrategy authStrategy;
 
   public CloudServiceConfiguration(AuthStrategy authStrategy) {
     this.authStrategy = authStrategy;

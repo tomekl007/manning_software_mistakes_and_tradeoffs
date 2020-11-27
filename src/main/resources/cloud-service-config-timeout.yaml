@@ -1,0 +1,7 @@
+auth:
+  strategy: username-password
+  username: user
+  password: pass
+
+timeouts:
+  connection: 1000
