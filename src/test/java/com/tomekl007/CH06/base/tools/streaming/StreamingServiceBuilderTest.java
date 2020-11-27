@@ -1,10 +1,10 @@
-package com.tomekl007.CH06.tools.streaming;
+package com.tomekl007.CH06.base.tools.streaming;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.tomekl007.CH06.client.library.CloudServiceConfiguration;
-import com.tomekl007.CH06.client.library.DefaultCloudServiceClient;
-import com.tomekl007.CH06.client.library.auth.UsernamePasswordAuthStrategy;
+import com.tomekl007.CH06.base.client.library.CloudServiceConfiguration;
+import com.tomekl007.CH06.base.client.library.DefaultCloudServiceClient;
+import com.tomekl007.CH06.base.client.library.auth.UsernamePasswordAuthStrategy;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;

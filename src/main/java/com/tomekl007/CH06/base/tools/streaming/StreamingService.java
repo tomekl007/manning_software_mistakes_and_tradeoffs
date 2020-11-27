@@ -1,7 +1,7 @@
-package com.tomekl007.CH06.tools.streaming;
+package com.tomekl007.CH06.base.tools.streaming;
 
 import com.tomekl007.CH06.Request;
-import com.tomekl007.CH06.client.library.CloudServiceClient;
+import com.tomekl007.CH06.base.client.library.CloudServiceClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

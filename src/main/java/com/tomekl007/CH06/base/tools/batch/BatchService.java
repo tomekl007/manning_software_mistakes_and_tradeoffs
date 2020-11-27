@@ -1,7 +1,7 @@
-package com.tomekl007.CH06.tools.batch;
+package com.tomekl007.CH06.base.tools.batch;
 
 import com.tomekl007.CH06.Request;
-import com.tomekl007.CH06.client.library.CloudServiceClient;
+import com.tomekl007.CH06.base.client.library.CloudServiceClient;
 import java.util.ArrayList;
 import java.util.List;
 

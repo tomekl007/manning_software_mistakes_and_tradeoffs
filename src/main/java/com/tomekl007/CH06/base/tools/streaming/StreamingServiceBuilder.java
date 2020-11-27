@@ -1,11 +1,11 @@
-package com.tomekl007.CH06.tools.streaming;
+package com.tomekl007.CH06.base.tools.streaming;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.tomekl007.CH06.client.library.CloudServiceClientBuilder;
-import com.tomekl007.CH06.client.library.CloudServiceConfiguration;
-import com.tomekl007.CH06.client.library.auth.UsernamePasswordAuthStrategy;
+import com.tomekl007.CH06.base.client.library.CloudServiceClientBuilder;
+import com.tomekl007.CH06.base.client.library.CloudServiceConfiguration;
+import com.tomekl007.CH06.base.client.library.auth.UsernamePasswordAuthStrategy;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Path;

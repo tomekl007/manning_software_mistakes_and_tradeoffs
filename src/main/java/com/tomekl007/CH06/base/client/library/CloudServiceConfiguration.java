@@ -1,6 +1,6 @@
-package com.tomekl007.CH06.client.library;
+package com.tomekl007.CH06.base.client.library;
 
-import com.tomekl007.CH06.client.library.auth.AuthStrategy;
+import com.tomekl007.CH06.base.client.library.auth.AuthStrategy;
 import java.util.Objects;
 
 public class CloudServiceConfiguration {

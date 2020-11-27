@@ -1,10 +1,10 @@
-package com.tomekl007.CH06.tools.batch;
+package com.tomekl007.CH06.base.tools.batch;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.tomekl007.CH06.client.library.CloudServiceClient;
-import com.tomekl007.CH06.client.library.CloudServiceClientBuilder;
+import com.tomekl007.CH06.base.client.library.CloudServiceClient;
+import com.tomekl007.CH06.base.client.library.CloudServiceClientBuilder;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Path;

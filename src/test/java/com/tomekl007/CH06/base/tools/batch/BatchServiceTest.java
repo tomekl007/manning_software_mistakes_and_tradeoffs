@@ -1,10 +1,9 @@
-package com.tomekl007.CH06.tools.batch;
+package com.tomekl007.CH06.base.tools.batch;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import com.tomekl007.CH06.Request;
-import com.tomekl007.CH06.client.library.CloudServiceClient;
+import com.tomekl007.CH06.base.client.library.CloudServiceClient;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

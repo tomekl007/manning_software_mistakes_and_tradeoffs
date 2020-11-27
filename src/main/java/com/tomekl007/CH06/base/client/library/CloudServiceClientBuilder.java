@@ -1,11 +1,11 @@
-package com.tomekl007.CH06.client.library;
+package com.tomekl007.CH06.base.client.library;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.tomekl007.CH06.client.library.auth.AuthStrategy;
-import com.tomekl007.CH06.client.library.auth.TokenAuthStrategy;
-import com.tomekl007.CH06.client.library.auth.UsernamePasswordAuthStrategy;
+import com.tomekl007.CH06.base.client.library.auth.AuthStrategy;
+import com.tomekl007.CH06.base.client.library.auth.TokenAuthStrategy;
+import com.tomekl007.CH06.base.client.library.auth.UsernamePasswordAuthStrategy;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Path;

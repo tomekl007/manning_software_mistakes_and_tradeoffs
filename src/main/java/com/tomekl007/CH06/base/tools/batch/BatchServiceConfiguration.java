@@ -1,4 +1,4 @@
-package com.tomekl007.CH06.tools.batch;
+package com.tomekl007.CH06.base.tools.batch;
 
 public class BatchServiceConfiguration {
   public final Integer batchSize;

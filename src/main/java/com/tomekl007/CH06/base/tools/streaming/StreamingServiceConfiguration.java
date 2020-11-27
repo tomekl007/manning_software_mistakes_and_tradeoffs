@@ -1,4 +1,4 @@
-package com.tomekl007.CH06.tools.streaming;
+package com.tomekl007.CH06.base.tools.streaming;
 
 public class StreamingServiceConfiguration {
   private final int maxTimeMs;
