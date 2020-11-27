@@ -34,4 +34,14 @@ public class CloudServiceConfiguration {
   public int hashCode() {
     return Objects.hash(authStrategy, connectionTimeout);
   }
+
+  @Override
+  public String toString() {
+    return "CloudServiceConfiguration{"
+        + "authStrategy="
+        + authStrategy
+        + ", connectionTimeout="
+        + connectionTimeout
+        + '}';
+  }
 }

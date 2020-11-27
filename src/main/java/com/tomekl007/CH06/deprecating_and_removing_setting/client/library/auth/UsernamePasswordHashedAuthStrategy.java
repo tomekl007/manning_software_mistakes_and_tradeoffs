@@ -43,4 +43,16 @@ public class UsernamePasswordHashedAuthStrategy implements AuthStrategy {
   public int hashCode() {
     return Objects.hash(username, passwordHash);
   }
+
+  @Override
+  public String toString() {
+    return "UsernamePasswordHashedAuthStrategy{"
+        + "username='"
+        + username
+        + '\''
+        + ", passwordHash='"
+        + passwordHash
+        + '\''
+        + '}';
+  }
 }
