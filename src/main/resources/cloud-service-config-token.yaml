@@ -1,0 +1,3 @@
+auth:
+  strategy: token
+  token: c8933754-30a0-11eb-adc1-0242ac120002
