@@ -2,12 +2,15 @@ package com.tomekl007.CH01;
 
 public class Singleton {
 
-  private static final Singleton instance = new Singleton();
+  private static Singleton instance;
 
   private Singleton() {}
 
-  // it returns the only one instance that will be shared between components
-  public static Singleton getInstance() {
+  // WON'T work in the multi-threaded environment
+  public static synchronized Singleton getInstance() {
+    if (instance == null) {
+      instance = new Singleton();
+    }
     return instance;
   }
 }
