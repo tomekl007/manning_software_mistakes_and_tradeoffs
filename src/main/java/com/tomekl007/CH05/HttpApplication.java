@@ -4,7 +4,7 @@ import io.dropwizard.Application;
 import io.dropwizard.Configuration;
 import io.dropwizard.setup.Environment;
 
-public class RestApplication extends Application<Configuration> {
+public class HttpApplication extends Application<Configuration> {
 
   @Override
   public void run(Configuration configuration, Environment environment) {
@@ -15,6 +15,6 @@ public class RestApplication extends Application<Configuration> {
   // it will be accessible under
   // http://localhost:8080/words
   public static void main(String[] args) throws Exception {
-    new RestApplication().run("server");
+    new HttpApplication().run("server");
   }
 }
