@@ -1,6 +1,6 @@
 package com.tomekl007.CH05;
 
-import com.tomekl007.CH05.measure.MeasuredDefaultWordsService;
+import com.tomekl007.CH05.cache.CachedWordsService;
 import java.nio.file.Paths;
 import java.util.Objects;
 import javax.ws.rs.Consumes;
@@ -22,7 +22,7 @@ public class WordsController {
     java.nio.file.Path defaultPath =
         Paths.get(
             Objects.requireNonNull(getClass().getClassLoader().getResource("words.txt")).getPath());
-    wordsService = new MeasuredDefaultWordsService(defaultPath);
+    wordsService = new CachedWordsService(defaultPath);
   }
 
   // Word of the day. It returns the one Word from the file, and it is called once per day.
