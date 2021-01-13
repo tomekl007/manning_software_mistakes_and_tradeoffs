@@ -5,20 +5,19 @@ import java.time.Duration;
 import java.time.Instant;
 
 public final class OneMinuteTarget {
-    private static final Duration ONE_MINUTE = Duration.ofMinutes(1);
-    private final Clock clock;
-    private final Instant minInclusive;
-    private final Instant maxInclusive;
+  private static final Duration ONE_MINUTE = Duration.ofMinutes(1);
+  private final Clock clock;
+  private final Instant minInclusive;
+  private final Instant maxInclusive;
 
-    public OneMinuteTarget(Clock clock, Instant target) {
-        this.clock = clock;
-        minInclusive = target.minus(ONE_MINUTE);
-        maxInclusive = target.plus(ONE_MINUTE);
-    }
+  public OneMinuteTarget(Clock clock, Instant target) {
+    this.clock = clock;
+    minInclusive = target.minus(ONE_MINUTE);
+    maxInclusive = target.plus(ONE_MINUTE);
+  }
 
-    public boolean isWithinOneMinuteOfTarget() {
-        Instant now = clock.instant();
-        return now.compareTo(minInclusive) >= 0 &&
-            now.compareTo(maxInclusive) <= 0;
-    }
+  public boolean isWithinOneMinuteOfTarget() {
+    Instant now = clock.instant();
+    return now.compareTo(minInclusive) >= 0 && now.compareTo(maxInclusive) <= 0;
+  }
 }
