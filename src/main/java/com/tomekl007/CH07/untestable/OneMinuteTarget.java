@@ -2,7 +2,6 @@ package com.tomekl007.CH07.untestable;
 
 import java.time.Duration;
 import java.time.Instant;
-
 import javax.annotation.Nonnull;
 
 public final class OneMinuteTarget {
