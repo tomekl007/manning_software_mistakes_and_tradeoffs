@@ -3,6 +3,7 @@ package com.tomekl007.CH07;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
+import javax.annotation.Nonnull;
 
 public final class OneMinuteTarget {
   private static final Duration ONE_MINUTE = Duration.ofMinutes(1);
@@ -10,7 +11,7 @@ public final class OneMinuteTarget {
   private final Instant minInclusive;
   private final Instant maxInclusive;
 
-  public OneMinuteTarget(Clock clock, Instant target) {
+  public OneMinuteTarget(@Nonnull Clock clock, @Nonnull Instant target) {
     this.clock = clock;
     minInclusive = target.minus(ONE_MINUTE);
     maxInclusive = target.plus(ONE_MINUTE);

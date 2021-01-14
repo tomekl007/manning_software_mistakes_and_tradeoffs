@@ -32,7 +32,7 @@ public class OrderItem {
    *
    * @param shippingTime The instant at which the item shipped from the warehouse.
    * @param destinationTimeZone The time zone where the item will be delivered.
-   * @return
+   * @return The final date on which this item can be returned.
    */
   @VisibleForTesting
   static LocalDate getFinalReturnsDate(Instant shippingTime, ZoneId destinationTimeZone) {
