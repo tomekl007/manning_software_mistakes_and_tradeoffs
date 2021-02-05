@@ -56,6 +56,8 @@ public class HttpClientExecution {
     CloseableHttpResponse execute = client.execute(new HttpPost(path));
     if (execute.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
       successMeter.mark();
+    } else {
+      failureMeter.mark();
     }
   }
 }
