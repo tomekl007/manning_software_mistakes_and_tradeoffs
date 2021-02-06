@@ -44,6 +44,7 @@ public class TryTest {
     assertTrue(optionalResponse.isEmpty());
     assertTrue(response.isFailure());
     assertThat(result).isEqualTo(defaultResult);
+    response.onSuccess(r -> assertThat(r).isEqualTo(100));
     response.onFailure(ex -> assertTrue(ex instanceof RuntimeException));
   }
 
