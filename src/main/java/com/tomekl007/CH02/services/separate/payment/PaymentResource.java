@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response.Status;
 @Path("/payment")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class PaymentRestResource {
+public class PaymentResource {
 
   private final PaymentService paymentService = new PaymentService();
   private final AuthService authService = new AuthService();

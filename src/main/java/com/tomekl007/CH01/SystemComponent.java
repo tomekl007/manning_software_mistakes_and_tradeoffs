@@ -1,6 +1,6 @@
 package com.tomekl007.CH01;
 
-public class ComponentToUnitTest {
+public class SystemComponent {
 
   public int publicApiMethod() {
     return privateApiMethod();

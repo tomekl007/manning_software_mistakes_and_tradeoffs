@@ -1,4 +1,4 @@
-package com.tomekl007.CH02.services.sharing.payment;
+package com.tomekl007.CH02.services.separate.auth;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -9,19 +9,18 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-@Path("/payment")
+@Path("/auth")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class PaymentRestResource {
+public class AuthResource {
 
-  private final PaymentService paymentService = new PaymentService();
   private final AuthService authService = new AuthService();
 
   @GET
-  @Path("/{token}")
+  @Path("/validate/{token}")
   public Response getAllPayments(@PathParam("token") String token) {
-    if (authService.isTokenValid(token)) {
-      return Response.ok(paymentService.getAllPayments()).build();
+    if (authService.validToken(token)) {
+      return Response.ok().build();
     } else {
       return Response.status(Status.UNAUTHORIZED).build();
     }
