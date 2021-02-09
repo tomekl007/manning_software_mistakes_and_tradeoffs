@@ -19,15 +19,14 @@ public class CacheComponent {
   public CacheComponent(Ticker ticker) {
     cache =
         CacheBuilder.newBuilder()
-            .ticker(ticker)
             .expireAfterWrite(DEFAULT_EVICTION_TIME)
-            .softValues()
+            .ticker(ticker)
             .recordStats()
             .build(
                 new CacheLoader<String, String>() {
                   @Override
-                  public String load(@Nullable String word) throws Exception {
-                    return word.toUpperCase();
+                  public String load(@Nullable String key) throws Exception {
+                    return key.toUpperCase();
                   }
                 });
   }

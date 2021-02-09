@@ -19,7 +19,7 @@ public class InjectFakeForTesting {
     assertThat(value).isEqualTo("KEY");
 
     // using Thread.sleep in test is a bad pattern, see testCacheWithFake() for an improvement.
-    Thread.sleep(CacheComponent.DEFAULT_EVICTION_TIME.plusSeconds(1).toMillis());
+    Thread.sleep(CacheComponent.DEFAULT_EVICTION_TIME.toMillis());
     // the eviction is done on the load operation - to trigger this we need to call the
     // get method
     assertThat(cacheComponent.get("key")).isEqualTo("KEY");
@@ -40,7 +40,7 @@ public class InjectFakeForTesting {
 
     // then
     assertThat(value).isEqualTo("KEY");
-    fakeTicker.advance(CacheComponent.DEFAULT_EVICTION_TIME.plusSeconds(1));
+    fakeTicker.advance(CacheComponent.DEFAULT_EVICTION_TIME);
     assertThat(cacheComponent.get("key")).isEqualTo("KEY");
     assertThat(cacheComponent.cache.stats().evictionCount()).isEqualTo(1);
 

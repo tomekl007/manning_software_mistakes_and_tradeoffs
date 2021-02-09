@@ -18,7 +18,7 @@ public class ReactorTesting {
     Flux<Integer> data = Flux.fromIterable(Arrays.asList(1, 2, 3));
     // using Thread.sleep in test is a bad pattern, see testReactorUsingTestingLibrary() for an
     // improvement.
-    Thread.sleep(10_001);
+    Thread.sleep(10_000);
     // how to verify that the value after 10 seconds is not taken into account?
 
     // when
