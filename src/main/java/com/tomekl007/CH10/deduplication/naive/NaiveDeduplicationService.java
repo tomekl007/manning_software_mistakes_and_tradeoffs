@@ -1,20 +1,16 @@
 package com.tomekl007.CH10.deduplication.naive;
 
 import com.tomekl007.CH10.deduplication.DbClient;
-import com.tomekl007.CH10.deduplication.DeduplicationService;
 
-public class NaiveDeduplicationService implements DeduplicationService {
+public class NaiveDeduplicationService {
 
   private final DbClient dbClient = new DbClient();
 
-  @Override
-  public boolean isDuplicate(String id) {
+  public void executeIfNotDuplicate(String id, Runnable action) {
     boolean present = dbClient.find(id);
     if (!present) {
+      action.run(); // blocks for N seconds
       dbClient.save(id);
-      return false;
-    } else {
-      return true;
     }
   }
 }
