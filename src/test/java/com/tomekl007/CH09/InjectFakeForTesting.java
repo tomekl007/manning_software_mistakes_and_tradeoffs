@@ -1,6 +1,6 @@
 package com.tomekl007.CH09;
 
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.concurrent.ExecutionException;
 import org.junit.jupiter.api.Test;

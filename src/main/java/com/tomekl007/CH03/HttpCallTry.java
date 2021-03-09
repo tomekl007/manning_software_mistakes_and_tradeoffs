@@ -1,6 +1,5 @@
 package com.tomekl007.CH03;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.vavr.control.Try;
 import java.io.BufferedReader;
@@ -38,7 +37,7 @@ public class HttpCallTry {
         .collect(Collectors.joining("\n"));
   }
 
-  private EntityObject toEntity(String content) throws JsonProcessingException {
+  private EntityObject toEntity(String content) throws IOException {
     return OBJECT_MAPPER.readValue(content, EntityObject.class);
   }
 

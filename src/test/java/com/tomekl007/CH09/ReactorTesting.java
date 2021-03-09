@@ -1,7 +1,7 @@
 package com.tomekl007.CH09;
 
 import static com.tomekl007.CH09.ReactorCode.*;
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.Duration;
 import java.util.Arrays;
