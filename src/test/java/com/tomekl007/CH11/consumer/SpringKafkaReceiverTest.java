@@ -384,7 +384,7 @@ public class SpringKafkaReceiverTest {
 
   @Test
   public void
-      givenConsumer_whenSendMessageToItAndOffsetOnRebalancingIsSmallest_thenShouldConsumeMessagesFromTheBeginning()
+      givenConsumer_whenSendMessageToItAndOffsetOnRebalancingIsEarliest_thenShouldConsumeMessagesFromTheBeginning()
           throws Exception {
     // given
     ExecutorService executorService = Executors.newSingleThreadExecutor();
