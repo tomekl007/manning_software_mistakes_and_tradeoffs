@@ -9,8 +9,8 @@
   <url>http://www.example.com</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <gatling.version>3.3.0</gatling.version>
     <spring-kafka.version>1.3.11.RELEASE</spring-kafka.version>
     <gatling-plugin.version>3.1.0</gatling-plugin.version>
@@ -310,6 +310,13 @@
             <exclude>.idea/**</exclude>
             <exclude>**/target/**</exclude>
           </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
         </configuration>
       </plugin>
     </plugins>
