@@ -1,4 +1,4 @@
-//package com.tomekl007.CH07.joins
+//package com.tomekl007.CH08.joins
 //
 //import org.apache.spark.sql.functions.broadcast
 //import org.apache.spark.sql.{Dataset, SparkSession}

@@ -1,4 +1,4 @@
-package com.tomekl007.CH07.joins
+package com.tomekl007.CH08.joins
 
 case class UserData(userId: String, data: String)
 
