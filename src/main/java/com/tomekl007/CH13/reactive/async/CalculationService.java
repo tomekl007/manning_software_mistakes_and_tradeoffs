@@ -12,6 +12,7 @@ public class CalculationService {
   // caller decide whether to block or not
   // easy to transform between sync and async API
   // the rest of the code can be sync, and decide to get()
+  // easy to achieve thread-affinity
   public List<CompletableFuture<Integer>> calculateForUserIds(List<Integer> userIds) {
     return userIds.stream()
         .map(

@@ -12,6 +12,7 @@ public class CalculationServiceImproved {
   // new threading model that we need to learn
   // the Flux and reactive API will leak to the caller,
   // potentially, we need to change the whole application to use Flux.
+  // not easy to achieve thread-affinity. Any record can be processed by any thread.
   public Flux<Integer> calculateForUserIds(List<Integer> userIds) {
     return Flux.fromIterable(userIds)
         .publishOn(Schedulers.boundedElastic())

@@ -1,0 +1,37 @@
+package com.tomekl007.CH13.functional;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.function.BiFunction;
+
+public class Reduce {
+
+  public static <T> T reduce(List<T> values, BiFunction<T, T, T> reducer, T accumulator) {
+    return reduceInternal(values, reducer, accumulator);
+  }
+
+  private static <T> T reduceInternal(List<T> values, BiFunction<T, T, T> reducer, T accumulator) {
+    if (values.isEmpty()) {
+      return accumulator;
+    }
+    T head = getHead(values);
+    List<T> tail = getTail(values);
+    T result = reducer.apply(head, accumulator);
+    return reduceInternal(tail, reducer, result);
+  }
+
+  private static <T> List<T> getTail(List<T> values) {
+    if (values.size() == 1) {
+      return Collections.emptyList();
+    }
+
+    return values.subList(1, values.size());
+  }
+
+  private static <T> T getHead(List<T> values) {
+    if (values.size() == 1) {
+      return values.get(0);
+    }
+    return values.subList(0, 1).get(0);
+  }
+}
