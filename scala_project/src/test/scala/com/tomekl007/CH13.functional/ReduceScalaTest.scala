@@ -1,8 +1,9 @@
 package com.tomekl007.CH13.functional
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-class ReduceScalaTest extends FunSuite{
+
+class ReduceScalaTest extends AnyFunSuite {
 
   test("should reduce two values"){
     // given

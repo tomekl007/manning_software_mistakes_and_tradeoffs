@@ -2,7 +2,14 @@
 Each chapter has a dedicated folder for its code. 
 In the [src directory](src/main/java/com/tomekl007) you will find the production code grouped per chatper.
 In the [test directory](src/test/java/com/tomekl007) you will find the java test code. 
-Some chapters are using code written in Scala language (i.e. chapter 05), you will find it in the [scala test directory](src/test/scala/com/tomekl007).
+
+Some chapters are using code written in Scala language (i.e. chapter 05), you will find it in the dedicated [scala_project](scala_project).
+You can import the scala_project directly to your IDE, or run the scala test, in the context of this project:
+```
+cd scala_project
+mvn clean test
+mvn gatling:test
+``` 
 
 ## How to run the code
 Once you do a git clone on the repository, you can build the project by using [mvn](http://maven.apache.org/install.html).

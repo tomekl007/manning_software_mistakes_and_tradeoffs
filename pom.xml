@@ -11,10 +11,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <gatling.version>3.3.0</gatling.version>
     <spring-kafka.version>1.3.11.RELEASE</spring-kafka.version>
-    <gatling-plugin.version>3.1.0</gatling-plugin.version>
-    <simulation>WordsSimulation</simulation>
   </properties>
   <dependencies>
     <!-- spring-boot -->
@@ -71,18 +68,6 @@
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>29.0-jre</version>
-    </dependency>
-    <dependency>
-      <groupId>io.gatling</groupId>
-      <artifactId>gatling-test-framework</artifactId>
-      <version>${gatling.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.gatling.highcharts</groupId>
-      <artifactId>gatling-charts-highcharts</artifactId>
-      <version>${gatling.version}</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -164,22 +149,6 @@
       <version>2.11.12</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.spark</groupId>
-      <artifactId>spark-core_2.11</artifactId>
-      <version>2.0.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.spark</groupId>
-      <artifactId>spark-sql_2.11</artifactId>
-      <version>2.0.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.scalatest</groupId>
-      <artifactId>scalatest_2.11</artifactId>
-      <version>2.2.4</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>com.fasterxml.jackson.dataformat</groupId>
       <artifactId>jackson-dataformat-yaml</artifactId>
       <version>2.11.3</version>
@@ -229,62 +198,6 @@
            so don't need to run them separately. -->
           <excludes>com.tomekl007.CH11.consumer.SpringKafkaReceiverTest, com.tomekl007.CH11.producer.SpringKafkaSenderTest</excludes>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>net.alchim31.maven</groupId>
-        <artifactId>scala-maven-plugin</artifactId>
-        <version>3.2.2</version>
-        <executions>
-          <execution>
-            <id>compile</id>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-            <phase>compile</phase>
-          </execution>
-          <execution>
-            <id>test-compile</id>
-            <goals>
-              <goal>testCompile</goal>
-            </goals>
-            <phase>test-compile</phase>
-          </execution>
-          <execution>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>scala-doc-jar</id>
-            <phase>package</phase>
-            <goals>
-              <goal>doc-jar</goal>
-            </goals>
-            <configuration>
-              <args>
-                <arg>-nobootcp</arg>
-              </args>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.scalatest</groupId>
-        <artifactId>scalatest-maven-plugin</artifactId>
-        <version>1.0</version>
-        <configuration>
-          <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
-          <stdout>W</stdout>
-        </configuration>
-        <executions>
-          <execution>
-            <id>scala-test</id>
-            <goals>
-              <goal>test</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>com.coveo</groupId>
@@ -369,15 +282,6 @@
                 <mainClass>com.tomekl007.CH03.ExceptionsPerformanceTestRunner</mainClass>
               </manifest>
             </archive>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>io.gatling</groupId>
-          <artifactId>gatling-maven-plugin</artifactId>
-          <version>${gatling-plugin.version}</version>
-          <configuration>
-            <simulationClass>com.tomekl007.CH05.simulation.${simulation}</simulationClass>
-            <propagateSystemProperties>true</propagateSystemProperties>
           </configuration>
         </plugin>
       </plugins>
