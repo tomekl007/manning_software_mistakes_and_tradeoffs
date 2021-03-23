@@ -8,7 +8,11 @@ import scala.concurrent.duration._
 import scala.language.postfixOps
 
 /**
- * to start simulation: mvn gatling:test
+ * to start the simulation: mvn gatling:test
+ *
+ * It is important to run it in the context of scala_project/pom.xml;
+ * cd scala_project
+ * mvn mvn gatling:test
  *
  */
 class WordsSimulation extends Simulation {
