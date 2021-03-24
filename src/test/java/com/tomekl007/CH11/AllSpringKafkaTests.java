@@ -9,7 +9,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.kafka.test.rule.KafkaEmbedded;
+import org.springframework.kafka.test.rule.EmbeddedKafkaRule;
 
 @RunWith(Suite.class)
 @SuiteClasses({SpringKafkaSenderTest.class, SpringKafkaReceiverTest.class})
@@ -29,8 +29,8 @@ public class AllSpringKafkaTests {
   public static final Integer NUMBER_OF_PARTITIONS_PER_TOPIC = 4;
 
   @ClassRule
-  public static KafkaEmbedded embeddedKafka =
-      new KafkaEmbedded(
+  public static EmbeddedKafkaRule embeddedKafka =
+      new EmbeddedKafkaRule(
           1,
           true,
           NUMBER_OF_PARTITIONS_PER_TOPIC,
@@ -44,7 +44,7 @@ public class AllSpringKafkaTests {
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
-    String kafkaBootstrapServers = embeddedKafka.getBrokersAsString();
+    String kafkaBootstrapServers = embeddedKafka.getEmbeddedKafka().getBrokersAsString();
 
     LOGGER.debug("kafkaServers='{}'", kafkaBootstrapServers);
     // override the property in application.properties

@@ -22,9 +22,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.listener.ContainerProperties;
 import org.springframework.kafka.listener.KafkaMessageListenerContainer;
 import org.springframework.kafka.listener.MessageListener;
-import org.springframework.kafka.listener.config.ContainerProperties;
 import org.springframework.kafka.test.utils.ContainerTestUtils;
 import org.springframework.kafka.test.utils.KafkaTestUtils;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -45,7 +45,8 @@ public class SpringKafkaSenderTest {
   public void setUp() throws Exception {
     // set up the Kafka consumer properties
     Map<String, Object> consumerProperties =
-        KafkaTestUtils.consumerProps("sender_group", "false", AllSpringKafkaTests.embeddedKafka);
+        KafkaTestUtils.consumerProps(
+            "sender_group", "false", AllSpringKafkaTests.embeddedKafka.getEmbeddedKafka());
 
     // create a Kafka consumer factory
     DefaultKafkaConsumerFactory<Integer, String> consumerFactory =
@@ -73,7 +74,7 @@ public class SpringKafkaSenderTest {
     container.start();
     // wait until the container has the required number of assigned partitions
     ContainerTestUtils.waitForAssignment(
-        container, AllSpringKafkaTests.embeddedKafka.getPartitionsPerTopic());
+        container, AllSpringKafkaTests.embeddedKafka.getEmbeddedKafka().getPartitionsPerTopic());
   }
 
   @After
@@ -140,21 +141,5 @@ public class SpringKafkaSenderTest {
     // then
     assertThat(records.poll(10, TimeUnit.SECONDS)).has(value(content)).has(key(userId));
     assertThat(recordMetadata.partition()).isBetween(0, NUMBER_OF_PARTITIONS_PER_TOPIC - 2);
-  }
-
-  @Test
-  public void
-      givenMessage_whenSendEventForTopicThatNotExists_thenShouldSendMessageToFirstPartitionBecauseKafkaWIllCreateTopicWithOnlyOne()
-          throws Exception {
-    // given
-    String content = "User viewed page X";
-    Integer userId = new Random().nextInt(100_000);
-    String topic = "non_existing_topic-that-kafka-will-create-with-one-partition";
-
-    // when
-    RecordMetadata recordMetadata = sender.sendBlocking(topic, content, userId);
-
-    // then
-    assertThat(recordMetadata.partition()).isEqualTo(0);
   }
 }

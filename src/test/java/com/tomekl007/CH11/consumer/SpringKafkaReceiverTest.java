@@ -39,7 +39,7 @@ public class SpringKafkaReceiverTest {
   public void setUp() throws Exception {
     // set up the Kafka producer properties
     Map<String, Object> senderProperties =
-        KafkaTestUtils.senderProps(AllSpringKafkaTests.embeddedKafka.getBrokersAsString());
+        KafkaTestUtils.producerProps(AllSpringKafkaTests.embeddedKafka.getEmbeddedKafka());
 
     // create a Kafka producer factory
     ProducerFactory<Integer, String> producerFactory =
@@ -51,7 +51,8 @@ public class SpringKafkaReceiverTest {
     for (MessageListenerContainer messageListenerContainer :
         kafkaListenerEndpointRegistry.getListenerContainers()) {
       ContainerTestUtils.waitForAssignment(
-          messageListenerContainer, AllSpringKafkaTests.embeddedKafka.getPartitionsPerTopic());
+          messageListenerContainer,
+          AllSpringKafkaTests.embeddedKafka.getEmbeddedKafka().getPartitionsPerTopic());
     }
   }
 
@@ -67,7 +68,7 @@ public class SpringKafkaReceiverTest {
             KafkaTestUtils.consumerProps(
                 "group_id" + UUID.randomUUID().toString(),
                 "true",
-                AllSpringKafkaTests.embeddedKafka),
+                AllSpringKafkaTests.embeddedKafka.getEmbeddedKafka()),
             CONSUMER_TEST_TOPIC);
 
     // when
@@ -96,7 +97,9 @@ public class SpringKafkaReceiverTest {
     KafkaConsumerWrapperSyncCommit kafkaConsumer =
         new KafkaConsumerWrapperSyncCommit(
             consumerConfigs(
-                gropupId, "false", AllSpringKafkaTests.embeddedKafka.getBrokersAsString()),
+                gropupId,
+                "false",
+                AllSpringKafkaTests.embeddedKafka.getEmbeddedKafka().getBrokersAsString()),
             CONSUMER_TEST_TOPIC_COMMIT_SYNC);
 
     // when
@@ -119,7 +122,9 @@ public class SpringKafkaReceiverTest {
     KafkaConsumerWrapperSyncCommit newConsumer =
         new KafkaConsumerWrapperSyncCommit(
             consumerConfigs(
-                gropupId, "false", AllSpringKafkaTests.embeddedKafka.getBrokersAsString()),
+                gropupId,
+                "false",
+                AllSpringKafkaTests.embeddedKafka.getEmbeddedKafka().getBrokersAsString()),
             CONSUMER_TEST_TOPIC_COMMIT_SYNC);
 
     ExecutorService executorService2 = Executors.newSingleThreadExecutor();
@@ -149,7 +154,9 @@ public class SpringKafkaReceiverTest {
     KafkaConsumerWrapperAsyncCommit kafkaConsumer =
         new KafkaConsumerWrapperAsyncCommit(
             consumerConfigs(
-                gropupId, "false", AllSpringKafkaTests.embeddedKafka.getBrokersAsString()),
+                gropupId,
+                "false",
+                AllSpringKafkaTests.embeddedKafka.getEmbeddedKafka().getBrokersAsString()),
             CONSUMER_TEST_TOPIC_COMMIT_ASYNC);
 
     // when
@@ -172,7 +179,9 @@ public class SpringKafkaReceiverTest {
     KafkaConsumerWrapperAsyncCommit newConsumer =
         new KafkaConsumerWrapperAsyncCommit(
             consumerConfigs(
-                gropupId, "false", AllSpringKafkaTests.embeddedKafka.getBrokersAsString()),
+                gropupId,
+                "false",
+                AllSpringKafkaTests.embeddedKafka.getEmbeddedKafka().getBrokersAsString()),
             CONSUMER_TEST_TOPIC_COMMIT_ASYNC);
 
     ExecutorService executorService2 = Executors.newSingleThreadExecutor();
@@ -203,7 +212,9 @@ public class SpringKafkaReceiverTest {
     KafkaConsumerWrapper kafkaConsumer =
         new KafkaConsumerWrapperAsyncCommitAndOnShutdown(
             consumerConfigs(
-                gropupId, "false", AllSpringKafkaTests.embeddedKafka.getBrokersAsString()),
+                gropupId,
+                "false",
+                AllSpringKafkaTests.embeddedKafka.getEmbeddedKafka().getBrokersAsString()),
             CONSUMER_TEST_TOPIC_COMMIT_ASYNC_AND_SYNC);
 
     // when
@@ -226,7 +237,9 @@ public class SpringKafkaReceiverTest {
     KafkaConsumerWrapper newConsumer =
         new KafkaConsumerWrapperAsyncCommitAndOnShutdown(
             consumerConfigs(
-                gropupId, "false", AllSpringKafkaTests.embeddedKafka.getBrokersAsString()),
+                gropupId,
+                "false",
+                AllSpringKafkaTests.embeddedKafka.getEmbeddedKafka().getBrokersAsString()),
             CONSUMER_TEST_TOPIC_COMMIT_ASYNC_AND_SYNC);
 
     ExecutorService executorService2 = Executors.newSingleThreadExecutor();
@@ -256,14 +269,14 @@ public class SpringKafkaReceiverTest {
             KafkaTestUtils.consumerProps(
                 "group_id" + UUID.randomUUID().toString(),
                 "false",
-                AllSpringKafkaTests.embeddedKafka),
+                AllSpringKafkaTests.embeddedKafka.getEmbeddedKafka()),
             CONSUMER_TEST_TOPIC);
     KafkaConsumerWrapper kafkaConsumerSecond =
         new KafkaConsumerWrapperSyncCommit(
             KafkaTestUtils.consumerProps(
                 "group_id" + UUID.randomUUID().toString(),
                 "false",
-                AllSpringKafkaTests.embeddedKafka),
+                AllSpringKafkaTests.embeddedKafka.getEmbeddedKafka()),
             CONSUMER_TEST_TOPIC);
 
     // when
@@ -299,7 +312,9 @@ public class SpringKafkaReceiverTest {
     KafkaConsumerWrapper kafkaConsumer =
         new KafkaConsumerWrapperCommitSpecificOffsets(
             consumerConfigs(
-                gropupId, "false", AllSpringKafkaTests.embeddedKafka.getBrokersAsString()),
+                gropupId,
+                "false",
+                AllSpringKafkaTests.embeddedKafka.getEmbeddedKafka().getBrokersAsString()),
             CONSUMER_TEST_TOPIC_COMMIT_SPECIFIC_OFFSETS);
 
     // when
@@ -322,7 +337,9 @@ public class SpringKafkaReceiverTest {
     KafkaConsumerWrapper newConsumer =
         new KafkaConsumerWrapperCommitSpecificOffsets(
             consumerConfigs(
-                gropupId, "false", AllSpringKafkaTests.embeddedKafka.getBrokersAsString()),
+                gropupId,
+                "false",
+                AllSpringKafkaTests.embeddedKafka.getEmbeddedKafka().getBrokersAsString()),
             CONSUMER_TEST_TOPIC_COMMIT_SPECIFIC_OFFSETS);
 
     ExecutorService executorService2 = Executors.newSingleThreadExecutor();
@@ -355,7 +372,7 @@ public class SpringKafkaReceiverTest {
             KafkaTestUtils.consumerProps(
                 "group_id" + UUID.randomUUID().toString(),
                 "false",
-                AllSpringKafkaTests.embeddedKafka),
+                AllSpringKafkaTests.embeddedKafka.getEmbeddedKafka()),
             CONSUMER_TEST_TOPIC,
             OffsetResetStrategy.LATEST); // latest is default in kafka
 
@@ -395,7 +412,7 @@ public class SpringKafkaReceiverTest {
             KafkaTestUtils.consumerProps(
                 "group_id" + UUID.randomUUID().toString(),
                 "false",
-                AllSpringKafkaTests.embeddedKafka),
+                AllSpringKafkaTests.embeddedKafka.getEmbeddedKafka()),
             CONSUMER_TEST_TOPIC,
             OffsetResetStrategy.EARLIEST);
 
