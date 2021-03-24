@@ -29,9 +29,6 @@ public class Reduce {
   }
 
   private static <T> T getHead(List<T> values) {
-    if (values.size() == 1) {
-      return values.get(0);
-    }
-    return values.subList(0, 1).get(0);
+    return values.get(0);
   }
 }

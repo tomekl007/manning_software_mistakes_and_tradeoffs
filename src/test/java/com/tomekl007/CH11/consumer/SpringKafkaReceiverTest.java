@@ -76,7 +76,7 @@ public class SpringKafkaReceiverTest {
     for (int i = 0; i < 10; i++) {
       kafkaProducer
           .send(new ProducerRecord<>(CONSUMER_TEST_TOPIC, message))
-          .get(1, TimeUnit.SECONDS);
+          .get(5, TimeUnit.SECONDS);
     }
 
     // then
@@ -275,7 +275,7 @@ public class SpringKafkaReceiverTest {
           .send(
               new ProducerRecord<>(
                   CONSUMER_TEST_TOPIC, "Send unique message " + UUID.randomUUID().toString()))
-          .get(1, TimeUnit.SECONDS);
+          .get(5, TimeUnit.SECONDS);
     }
 
     // then
