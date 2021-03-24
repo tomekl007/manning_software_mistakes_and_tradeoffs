@@ -57,36 +57,6 @@ public class SpringKafkaReceiverTest {
   }
 
   @Test
-  public void givenConsumerWithAutoCommit_whenSendMessageToIt_thenShouldReceiveInThePoolLoop()
-      throws Exception {
-    // given
-    ExecutorService executorService = Executors.newSingleThreadExecutor();
-    String message = "Send unique message " + UUID.randomUUID().toString();
-
-    KafkaConsumerWrapper kafkaConsumer =
-        new KafkaConsumerAutoCommit(
-            KafkaTestUtils.consumerProps(
-                "group_id" + UUID.randomUUID().toString(),
-                "true",
-                AllSpringKafkaTests.embeddedKafka.getEmbeddedKafka()),
-            CONSUMER_TEST_TOPIC);
-
-    // when
-    executorService.submit(kafkaConsumer::startConsuming);
-
-    for (int i = 0; i < 10; i++) {
-      kafkaProducer
-          .send(new ProducerRecord<>(CONSUMER_TEST_TOPIC, message))
-          .get(1, TimeUnit.SECONDS);
-    }
-
-    // then
-    executorService.awaitTermination(4, TimeUnit.SECONDS);
-    executorService.shutdown();
-    assertThat(kafkaConsumer.getConsumedEvents().get(0).value()).isEqualTo(message);
-  }
-
-  @Test
   public void givenConsumerWithSyncCommit_whenSendMessageToIt_thenShouldReceiveInThePoolLoop()
       throws Exception {
     // given

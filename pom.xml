@@ -11,7 +11,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <spring-kafka.version>2.3.9.RELEASE</spring-kafka.version>
+    <spring-kafka.version>2.5.12.RELEASE</spring-kafka.version>
   </properties>
   <dependencies>
     <!-- spring-boot -->

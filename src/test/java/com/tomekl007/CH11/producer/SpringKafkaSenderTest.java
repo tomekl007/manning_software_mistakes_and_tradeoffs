@@ -111,23 +111,6 @@ public class SpringKafkaSenderTest {
 
   @Test
   public void
-      givenMessage_whenSendForSpecificPartitionKey_thenMessageShouldAlwaysLandInLastPartition()
-          throws Exception {
-    // given
-    String content = "User viewed page C";
-    Integer userId = 777;
-
-    // when
-    RecordMetadata recordMetadata =
-        sender.sendBlocking(AllSpringKafkaTests.SENDER_TOPIC, content, userId);
-
-    // then
-    assertThat(records.poll(10, TimeUnit.SECONDS)).has(value(content)).has(key(userId));
-    assertThat(recordMetadata.partition()).isEqualTo(NUMBER_OF_PARTITIONS_PER_TOPIC - 1);
-  }
-
-  @Test
-  public void
       givenMessage_whenSendForOtherThanSpecificPartitionKey_thenMessageShouldAlwaysLandNOTInLastPartition()
           throws Exception {
     // given
