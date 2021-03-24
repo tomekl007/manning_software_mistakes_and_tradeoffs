@@ -170,6 +170,12 @@
       <artifactId>wiremock</artifactId>
       <version>2.27.2</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.ow2.asm</groupId>
+          <artifactId>asm</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <!-- https://mvnrepository.com/artifact/io.projectreactor/reactor-core -->
     <dependency>
