@@ -1,5 +1,6 @@
 package com.tomekl007.CH06.deprecating_and_removing_setting.tools.batch;
 
+import static com.tomekl007.CH06.deprecating_and_removing_setting.client.library.auth.UsernamePasswordHashedAuthStrategy.toHash;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,6 +32,28 @@ class BatchServiceBuilderTest {
         .isInstanceOf(UnsupportedOperationException.class)
         .hasMessageContaining("The username-password strategy is no longer supported.");
     ;
+  }
+
+  @Test
+  public void shouldWorkIfUsingNotSupportedAuthStrategyButHackyWorkaroundProvided() {
+    // given
+    Path path =
+        Paths.get(
+            Objects.requireNonNull(
+                    getClass().getClassLoader().getResource("batch-service-config-timeout.yaml"))
+                .getPath());
+
+    // when
+    BatchService batchService = new BatchServiceBuilderHackyWorkaround().create(path);
+
+    // then
+    assertThat(batchService.getBatchServiceConfiguration().getBatchSize()).isEqualTo(100);
+    assertThat(
+            ((DefaultCloudServiceClient) batchService.getCloudServiceClient())
+                .getCloudServiceConfiguration())
+        .isEqualTo(
+            new CloudServiceConfiguration(
+                new UsernamePasswordHashedAuthStrategy("u", toHash("p")), 1000));
   }
 
   @Test

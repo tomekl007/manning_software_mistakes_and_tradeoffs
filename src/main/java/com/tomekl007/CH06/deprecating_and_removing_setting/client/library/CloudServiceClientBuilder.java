@@ -13,9 +13,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CloudServiceClientBuilder {
-  private static final String USERNAME_PASSWORD_STRATEGY = "username-password";
+  public static final String USERNAME_PASSWORD_STRATEGY = "username-password";
   private static final String TOKEN_STRATEGY = "token";
-  private static final String USERNAME_PASSWORD_HASHED_STRATEGY = "username-password-hashed";
+  public static final String USERNAME_PASSWORD_HASHED_STRATEGY = "username-password-hashed";
   private final ObjectMapper mapper;
   private final MapType yamlConfigType;
 
