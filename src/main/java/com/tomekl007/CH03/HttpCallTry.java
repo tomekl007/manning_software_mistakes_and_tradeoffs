@@ -11,8 +11,11 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HttpCallTry {
+  private static final Logger logger = LoggerFactory.getLogger(HttpCallTry.class);
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
   public String getId() {
@@ -23,6 +26,7 @@ public class HttpCallTry {
         .mapTry(this::extractStringBody)
         .mapTry(this::toEntity)
         .map(this::extractUserId)
+        .onFailure(ex -> logger.error("The getId() failed.", ex))
         .getOrElse("DEFAULT_ID");
   }
 
