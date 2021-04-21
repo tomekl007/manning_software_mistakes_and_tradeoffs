@@ -25,7 +25,7 @@ public abstract class BaseTraceRequestHandler<T extends TraceRequest> {
     }
   }
 
-  protected abstract String createPayload(T graphTrace);
+  protected abstract String createPayload(T trace);
 
   public boolean isProcessed() {
     return processed;
