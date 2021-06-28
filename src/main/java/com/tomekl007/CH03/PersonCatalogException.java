@@ -6,11 +6,11 @@ public class PersonCatalogException extends Exception {
     super(message, cause);
   }
 
-  PersonCatalogException getPersonException(String personName, Throwable t) {
+  public static PersonCatalogException getPersonException(String personName, Throwable t) {
     return new PersonCatalogException("Problem when getting person file for: " + personName, t);
   }
 
-  PersonCatalogException createPersonException(String personName, Throwable t) {
+  public static PersonCatalogException createPersonException(String personName, Throwable t) {
     return new PersonCatalogException("Problem when creating person file for: " + personName, t);
   }
 }
