@@ -1,14 +1,16 @@
 package com.tomekl007.CH05.cache;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
-import com.google.common.base.Ticker;
-import com.tomekl007.CH05.WordsService;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
+
 import org.junit.jupiter.api.Test;
+
+import com.google.common.base.Ticker;
+import com.tomekl007.CH05.WordsService;
 
 class CachedWordsServiceTest {
   @Test
@@ -105,7 +107,11 @@ class CachedWordsServiceTest {
   }
 
   private Path getWordsPath() {
-    return Paths.get(
-        Objects.requireNonNull(getClass().getClassLoader().getResource("words.txt")).getPath());
+    try {
+      return Paths.get(
+          Objects.requireNonNull(getClass().getClassLoader().getResource("words.txt")).toURI());
+    } catch (URISyntaxException e) {
+      throw new IllegalStateException("Invalid words.txt path", e);
+    }
   }
 }

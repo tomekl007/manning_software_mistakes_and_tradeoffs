@@ -1,6 +1,7 @@
 package com.tomekl007.CH05;
 
 import com.tomekl007.CH05.cache.CachedWordsService;
+import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.Objects;
 import javax.ws.rs.Consumes;
@@ -19,9 +20,7 @@ public class WordsController {
   private final WordsService wordsService;
 
   public WordsController() {
-    java.nio.file.Path defaultPath =
-        Paths.get(
-            Objects.requireNonNull(getClass().getClassLoader().getResource("words.txt")).getPath());
+    java.nio.file.Path defaultPath = getPath("words.txt");
     wordsService = new CachedWordsService(defaultPath);
   }
 
@@ -48,5 +47,14 @@ public class WordsController {
   public Response validateAccount(@QueryParam("word") String word) {
     boolean exists = wordsService.wordExists(word);
     return Response.status(Status.OK.getStatusCode(), String.valueOf(exists)).build();
+  }
+
+  private java.nio.file.Path getPath(String filename) {
+    try {
+      return Paths.get(
+          Objects.requireNonNull(getClass().getClassLoader().getResource(filename)).toURI());
+    } catch (URISyntaxException e) {
+      throw new IllegalStateException("Invalid " + filename + " path", e);
+    }
   }
 }

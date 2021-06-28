@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.tomekl007.CH05.Account;
 import com.tomekl007.CH05.DefaultSupportedAccountsLoader;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -14,10 +15,7 @@ class DefaultSupportedAccountsLoaderTest {
   @Test
   public void shouldGetAccountsFromYaml() {
     // given
-    Path path =
-        Paths.get(
-            Objects.requireNonNull(getClass().getClassLoader().getResource("accounts.yaml"))
-                .getPath());
+    Path path = getPath("accounts.yaml");
     DefaultSupportedAccountsLoader defaultSupportedAccountsLoader =
         new DefaultSupportedAccountsLoader(path);
 
@@ -26,5 +24,14 @@ class DefaultSupportedAccountsLoaderTest {
 
     // then
     assertThat(accounts.size()).isEqualTo(2);
+  }
+
+  private Path getPath(String filename) {
+    try {
+      return Paths.get(
+          Objects.requireNonNull(getClass().getClassLoader().getResource(filename)).toURI());
+    } catch (URISyntaxException e) {
+      throw new IllegalStateException("Invalid " + filename + " path", e);
+    }
   }
 }

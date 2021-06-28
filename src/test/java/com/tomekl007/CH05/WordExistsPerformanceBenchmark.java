@@ -2,6 +2,7 @@ package com.tomekl007.CH05;
 
 import com.tomekl007.CH05.cache.CachedWordsService;
 import com.tomekl007.CH05.initial.DefaultWordsService;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -51,7 +52,11 @@ public class WordExistsPerformanceBenchmark {
   }
 
   private Path getWordsPath() {
-    return Paths.get(
-        Objects.requireNonNull(getClass().getClassLoader().getResource("words.txt")).getPath());
+    try {
+      return Paths.get(
+          Objects.requireNonNull(getClass().getClassLoader().getResource("words.txt")).toURI());
+    } catch (URISyntaxException e) {
+      throw new IllegalStateException("Invalid words.txt path", e);
+    }
   }
 }

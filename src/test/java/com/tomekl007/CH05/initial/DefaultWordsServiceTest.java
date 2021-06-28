@@ -3,6 +3,7 @@ package com.tomekl007.CH05.initial;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.tomekl007.CH05.WordsService;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
@@ -75,7 +76,11 @@ class DefaultWordsServiceTest {
   }
 
   private Path getWordsPath() {
-    return Paths.get(
-        Objects.requireNonNull(getClass().getClassLoader().getResource("words.txt")).getPath());
+    try {
+      return Paths.get(
+          Objects.requireNonNull(getClass().getClassLoader().getResource("words.txt")).toURI());
+    } catch (URISyntaxException e) {
+      throw new IllegalStateException("Invalid words.txt path", e);
+    }
   }
 }

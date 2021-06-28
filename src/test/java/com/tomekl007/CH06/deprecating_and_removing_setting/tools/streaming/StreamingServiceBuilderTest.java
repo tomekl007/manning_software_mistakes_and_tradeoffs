@@ -2,11 +2,11 @@ package com.tomekl007.CH06.deprecating_and_removing_setting.tools.streaming;
 
 import static com.tomekl007.CH06.deprecating_and_removing_setting.client.library.auth.UsernamePasswordHashedAuthStrategy.toHash;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.tomekl007.CH06.deprecating_and_removing_setting.client.library.CloudServiceConfiguration;
 import com.tomekl007.CH06.deprecating_and_removing_setting.client.library.DefaultCloudServiceClient;
 import com.tomekl007.CH06.deprecating_and_removing_setting.client.library.auth.UsernamePasswordHashedAuthStrategy;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
@@ -18,13 +18,7 @@ class StreamingServiceBuilderTest {
   @Test
   public void shouldBuildStreamingServiceWithNewAuthStrategy() {
     // given
-    Path path =
-        Paths.get(
-            Objects.requireNonNull(
-                    getClass()
-                        .getClassLoader()
-                        .getResource("streaming-service-config-timeout.yaml"))
-                .getPath());
+    Path path = getPath("streaming-service-config-timeout.yaml");
 
     // when
     StreamingService streamingService = new StreamingServiceBuilder().create(path);
@@ -37,5 +31,14 @@ class StreamingServiceBuilderTest {
         .isEqualTo(
             new CloudServiceConfiguration(
                 new UsernamePasswordHashedAuthStrategy("u", toHash("p")), 1000));
+  }
+
+  private Path getPath(String filename) {
+    try {
+      return Paths.get(
+          Objects.requireNonNull(getClass().getClassLoader().getResource(filename)).toURI());
+    } catch (URISyntaxException e) {
+      throw new IllegalStateException("Invalid " + filename + " path", e);
+    }
   }
 }
