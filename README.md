@@ -16,5 +16,20 @@ Once you do a git clone on the repository, you can build the project by using [m
 To compile the project, run the `mvn compile`. To run all tests, run `mvn test` command. 
 
 You can also import your code into IDE. In the IntelliJ IDEA, you need to [open the project](https://www.jetbrains.com/help/idea/maven-support.html#maven_import_project_start). 
-It will automatically import it as a maven project and fetch all needed dependencies.    
+It will automatically import it as a maven project and fetch all needed dependencies.
+
+## Code formatting
+
+This project uses automatic code and XML format plugins to keep the consistent code style.
+To format the Java code, run:
+
+```
+mvn fmt:format
+```     
+
+To format XML files (mainly pom.xml):
+
+```
+mvn au.com.acegi:xml-format-maven-plugin:3.1.1:xml-format
+```
   
