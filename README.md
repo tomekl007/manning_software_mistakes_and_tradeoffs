@@ -1,3 +1,6 @@
+## Book
+This is a code for ["Software Mistakes and Tradeoffs: Making good programming decisions"](https://www.manning.com/books/software-mistakes-and-tradeoffs)
+
 ## The structure of the code
 Each chapter has a dedicated folder for its code. 
 In the [src directory](src/main/java/com/tomekl007) you will find the production code grouped per chatper.
