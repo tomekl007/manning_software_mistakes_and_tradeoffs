@@ -73,7 +73,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>29.0-jre</version>
+      <version>30.1.1-jre</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -134,7 +134,7 @@
     <dependency>
       <groupId>io.dropwizard.metrics</groupId>
       <artifactId>metrics-core</artifactId>
-      <version>4.1.13</version>
+      <version>4.2.2</version>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
