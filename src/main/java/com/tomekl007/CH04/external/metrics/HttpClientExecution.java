@@ -10,20 +10,20 @@ import org.slf4j.LoggerFactory;
 
 public class HttpClientExecution {
   private static final Logger logger = LoggerFactory.getLogger(HttpClientExecution.class);
-  private final int numberOfRetries;
+  private final int maxNumberOfRetries;
   private final CloseableHttpClient client;
 
   private MetricsProvider metricsProvider;
 
   public HttpClientExecution(
-      MetricsProvider metricsProvider, int numberOfRetries, CloseableHttpClient client) {
+      MetricsProvider metricsProvider, int maxNumberOfRetries, CloseableHttpClient client) {
     this.metricsProvider = metricsProvider;
-    this.numberOfRetries = numberOfRetries;
+    this.maxNumberOfRetries = maxNumberOfRetries;
     this.client = client;
   }
 
   public void executeWithRetry(String path) {
-    for (int i = 0; i <= numberOfRetries; i++) {
+    for (int i = 0; i <= maxNumberOfRetries; i++) {
       try {
         execute(path);
         // success - return
@@ -31,7 +31,7 @@ public class HttpClientExecution {
       } catch (IOException e) {
         logger.error("Problem when sending request for retry nr: " + i, e);
         metricsProvider.incrementFailure();
-        if (numberOfRetries == i) {
+        if (maxNumberOfRetries == i) {
           logger.error("This is the last retry, failing.");
           throw new RuntimeException(e);
         } else {

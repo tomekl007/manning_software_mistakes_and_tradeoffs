@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 public class HttpClientExecution {
   private static final Logger logger = LoggerFactory.getLogger(HttpClientExecution.class);
 
-  private final int numberOfRetries;
+  private final int maxNumberOfRetries;
 
   private final CloseableHttpClient client;
 
@@ -27,11 +27,11 @@ public class HttpClientExecution {
   private final List<OnRetryListener> retryListeners = new ArrayList<>();
 
   public HttpClientExecution(
-      MetricRegistry metricRegistry, int numberOfRetries, CloseableHttpClient client) {
+      MetricRegistry metricRegistry, int maxNumberOfRetries, CloseableHttpClient client) {
     this.successMeter = metricRegistry.meter("requests.success");
     this.failureMeter = metricRegistry.meter("requests.failure");
     this.retryCounter = metricRegistry.meter("requests.retry");
-    this.numberOfRetries = numberOfRetries;
+    this.maxNumberOfRetries = maxNumberOfRetries;
     this.client = client;
   }
 
@@ -41,7 +41,7 @@ public class HttpClientExecution {
 
   public void executeWithRetry(String path) {
     List<RetryStatus> retryStatuses = new ArrayList<>();
-    for (int i = 0; i <= numberOfRetries; i++) {
+    for (int i = 0; i <= maxNumberOfRetries; i++) {
       try {
         execute(path);
         // success - return
@@ -49,7 +49,7 @@ public class HttpClientExecution {
       } catch (IOException e) {
         logger.error("Problem when sending request for retry nr: " + i, e);
         failureMeter.mark();
-        if (numberOfRetries == i) {
+        if (maxNumberOfRetries == i) {
           logger.error("This is the last retry, failing.");
           throw new RuntimeException(e);
         } else {

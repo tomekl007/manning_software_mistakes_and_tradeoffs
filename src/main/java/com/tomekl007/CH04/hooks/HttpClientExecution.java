@@ -21,7 +21,7 @@ public class HttpClientExecution {
 
   private final MetricRegistry metricRegistry;
 
-  private final int numberOfRetries;
+  private final int maxNumberOfRetries;
 
   private final CloseableHttpClient client;
 
@@ -37,20 +37,20 @@ public class HttpClientExecution {
 
   public HttpClientExecution(
       MetricRegistry metricRegistry,
-      int numberOfRetries,
+      int maxNumberOfRetries,
       CloseableHttpClient client,
       List<HttpRequestHook> httpRequestHooks) {
     this.metricRegistry = metricRegistry;
     this.successMeter = metricRegistry.meter("requests.success");
     this.failureMeter = metricRegistry.meter("requests.failure");
     this.retryCounter = metricRegistry.meter("requests.retry");
-    this.numberOfRetries = numberOfRetries;
+    this.maxNumberOfRetries = maxNumberOfRetries;
     this.client = client;
     this.httpRequestHooks = httpRequestHooks;
   }
 
   public void executeWithRetry(String path) {
-    for (int i = 0; i <= numberOfRetries; i++) {
+    for (int i = 0; i <= maxNumberOfRetries; i++) {
       try {
         executeWithErrorHandlingAndParallel(path);
         // success - return
@@ -58,7 +58,7 @@ public class HttpClientExecution {
       } catch (Exception e) {
         logger.error("Problem when sending request for retry nr: " + i, e);
         failureMeter.mark();
-        if (numberOfRetries == i) {
+        if (maxNumberOfRetries == i) {
           logger.error("This is the last retry, failing.");
           throw new RuntimeException(e);
         } else {
