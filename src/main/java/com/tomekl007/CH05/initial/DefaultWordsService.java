@@ -6,34 +6,32 @@ import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.Scanner;
-import java.util.function.Supplier;
+import java.util.function.IntSupplier;
 
 public class DefaultWordsService implements WordsService {
 
   private static final int MULTIPLY_FACTOR = 100;
-  private static final Supplier<Integer> DEFAULT_INDEX_PROVIDER =
-      DefaultWordsService::getIndexForToday;
+  private static final IntSupplier DEFAULT_INDEX_PROVIDER = DefaultWordsService::getIndexForToday;
 
   private Path filePath;
 
-  private Supplier<Integer> indexProvider;
+  private IntSupplier indexProvider;
 
   public DefaultWordsService(Path filePath) {
     this(filePath, DEFAULT_INDEX_PROVIDER);
   }
 
   @VisibleForTesting
-  public DefaultWordsService(Path filePath, Supplier<Integer> indexProvider) {
+  public DefaultWordsService(Path filePath, IntSupplier indexProvider) {
     this.filePath = filePath;
     this.indexProvider = indexProvider;
   }
 
   @Override
   public String getWordOfTheDay() {
-    int index = indexProvider.get();
+    int index = indexProvider.getAsInt();
 
-    try {
-      Scanner scanner = new Scanner(filePath.toFile());
+    try (Scanner scanner = new Scanner(filePath.toFile())) {
       int i = 0;
       while (scanner.hasNextLine()) {
         String line = scanner.nextLine();
@@ -51,8 +49,7 @@ public class DefaultWordsService implements WordsService {
 
   @Override
   public boolean wordExists(String word) {
-    try {
-      Scanner scanner = new Scanner(filePath.toFile());
+    try (Scanner scanner = new Scanner(filePath.toFile())) {
       while (scanner.hasNextLine()) {
         String line = scanner.nextLine();
         if (word.equals(line)) {

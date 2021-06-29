@@ -62,8 +62,7 @@ public class CachedWordsService implements WordsService {
   public String getWordOfTheDay() {
     int index = indexProvider.get();
 
-    try {
-      Scanner scanner = new Scanner(filePath.toFile());
+    try (Scanner scanner = new Scanner(filePath.toFile())) {
       int i = 0;
       while (scanner.hasNextLine()) {
         String line = scanner.nextLine();
@@ -89,8 +88,7 @@ public class CachedWordsService implements WordsService {
   }
 
   private boolean checkIfWordExists(String word) {
-    try {
-      Scanner scanner = new Scanner(filePath.toFile());
+    try (Scanner scanner = new Scanner(filePath.toFile())) {
       while (scanner.hasNextLine()) {
         String line = scanner.nextLine();
         if (word.equals(line)) {
