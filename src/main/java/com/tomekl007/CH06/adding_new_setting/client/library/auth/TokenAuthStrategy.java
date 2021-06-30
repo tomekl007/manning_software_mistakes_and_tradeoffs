@@ -4,11 +4,11 @@ import com.tomekl007.CH06.Request;
 import java.util.Objects;
 
 public class TokenAuthStrategy implements AuthStrategy {
+  private final String token;
+
   public TokenAuthStrategy(String token) {
     this.token = token;
   }
-
-  private final String token;
 
   @Override
   public boolean authenticate(Request request) {
