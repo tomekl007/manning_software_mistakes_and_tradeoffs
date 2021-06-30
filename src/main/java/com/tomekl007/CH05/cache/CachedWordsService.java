@@ -13,20 +13,19 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
-import java.util.function.Supplier;
+import java.util.function.IntSupplier;
 import javax.annotation.Nullable;
 
 public class CachedWordsService implements WordsService {
 
   private static final int MULTIPLY_FACTOR = 100;
-  private static final Supplier<Integer> DEFAULT_INDEX_PROVIDER =
-      CachedWordsService::getIndexForToday;
+  private static final IntSupplier DEFAULT_INDEX_PROVIDER = CachedWordsService::getIndexForToday;
   public static final Duration DEFAULT_EVICTION_TIME = Duration.ofMinutes(5);
   @VisibleForTesting LoadingCache<String, Boolean> wordExistsCache;
 
   private Path filePath;
 
-  private Supplier<Integer> indexProvider;
+  private IntSupplier indexProvider;
 
   public CachedWordsService(Path filePath) {
     this(filePath, DEFAULT_INDEX_PROVIDER, Ticker.systemTicker());
@@ -38,7 +37,7 @@ public class CachedWordsService implements WordsService {
   }
 
   @VisibleForTesting
-  public CachedWordsService(Path filePath, Supplier<Integer> indexProvider, Ticker ticker) {
+  public CachedWordsService(Path filePath, IntSupplier indexProvider, Ticker ticker) {
     this.filePath = filePath;
     this.indexProvider = indexProvider;
     this.wordExistsCache =
@@ -60,7 +59,7 @@ public class CachedWordsService implements WordsService {
 
   @Override
   public String getWordOfTheDay() {
-    int index = indexProvider.get();
+    int index = indexProvider.getAsInt();
 
     try (Scanner scanner = new Scanner(filePath.toFile())) {
       int i = 0;

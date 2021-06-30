@@ -9,18 +9,18 @@ import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.Scanner;
-import java.util.function.Supplier;
+import java.util.function.IntSupplier;
 
 /** Metrics are available here: http://localhost:8081/metrics?pretty=true */
 public class MeasuredDefaultWordsService implements WordsService {
 
   private static final int MULTIPLY_FACTOR = 100;
-  private static final Supplier<Integer> DEFAULT_INDEX_PROVIDER =
+  private static final IntSupplier DEFAULT_INDEX_PROVIDER =
       MeasuredDefaultWordsService::getIndexForToday;
 
   private Path filePath;
 
-  private Supplier<Integer> indexProvider;
+  private IntSupplier indexProvider;
 
   private MetricRegistry metricRegistry;
 
@@ -31,7 +31,7 @@ public class MeasuredDefaultWordsService implements WordsService {
 
   @VisibleForTesting
   public MeasuredDefaultWordsService(
-      Path filePath, Supplier<Integer> indexProvider, MetricRegistry metricRegistry) {
+      Path filePath, IntSupplier indexProvider, MetricRegistry metricRegistry) {
     this.filePath = filePath;
     this.indexProvider = indexProvider;
     this.metricRegistry = metricRegistry;
@@ -39,7 +39,7 @@ public class MeasuredDefaultWordsService implements WordsService {
 
   @Override
   public String getWordOfTheDay() {
-    int index = indexProvider.get();
+    int index = indexProvider.getAsInt();
 
     try (Scanner scanner = new Scanner(filePath.toFile())) {
       int i = 0;
