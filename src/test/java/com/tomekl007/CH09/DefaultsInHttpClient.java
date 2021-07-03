@@ -72,7 +72,7 @@ public class DefaultsInHttpClient {
   }
 
   @Test
-  public void shouldFailRequestAfterTimeout() throws IOException {
+  public void shouldFailRequestAfterTimeout() {
     Request request = new Request.Builder().url(HOST + "/slow-data").build();
 
     OkHttpClient client = new OkHttpClient.Builder().readTimeout(Duration.ofMillis(100)).build();
