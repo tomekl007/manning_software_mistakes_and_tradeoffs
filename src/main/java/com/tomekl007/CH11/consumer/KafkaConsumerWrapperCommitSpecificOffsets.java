@@ -1,5 +1,6 @@
 package com.tomekl007.CH11.consumer;
 
+import java.time.Duration;
 import java.util.*;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -26,7 +27,7 @@ public class KafkaConsumerWrapperCommitSpecificOffsets implements KafkaConsumerW
   public void startConsuming() {
     int count = 0;
     while (true) {
-      ConsumerRecords<Integer, String> records = consumer.poll(100);
+      ConsumerRecords<Integer, String> records = consumer.poll(Duration.ofMillis(100));
       for (ConsumerRecord<Integer, String> record : records) {
         LOGGER.debug(
             "topic = {}, partition = {}, offset = {}, key = {}, value = {}",

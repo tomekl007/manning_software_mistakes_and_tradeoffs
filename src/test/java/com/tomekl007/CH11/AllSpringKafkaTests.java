@@ -26,7 +26,7 @@ public class AllSpringKafkaTests {
       "consumer_test_topic_commit_async_and_sync";
   public static final String CONSUMER_TEST_TOPIC_COMMIT_SPECIFIC_OFFSETS =
       "consumer_test_topic_commit_specific_offsets";
-  public static final Integer NUMBER_OF_PARTITIONS_PER_TOPIC = 4;
+  public static final int NUMBER_OF_PARTITIONS_PER_TOPIC = 4;
 
   @ClassRule
   public static EmbeddedKafkaRule embeddedKafka =
