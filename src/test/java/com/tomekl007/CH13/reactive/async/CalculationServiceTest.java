@@ -16,7 +16,7 @@ class CalculationServiceTest {
   public void shouldCalculateNElementsAsync() throws ExecutionException, InterruptedException {
     // given
     CalculationService calculationService = new CalculationService();
-    List<Integer> input = IntStream.range(1, 11).boxed().collect(Collectors.toList());
+    List<Integer> input = IntStream.rangeClosed(1, 10).boxed().collect(Collectors.toList());
 
     // when
     List<CompletableFuture<Integer>> resultAsync = calculationService.calculateForUserIds(input);

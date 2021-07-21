@@ -2,15 +2,15 @@ package com.tomekl007.CH13.functional;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
 
 public class Reduce {
 
-  public static <T> T reduce(List<T> values, BiFunction<T, T, T> reducer, T accumulator) {
+  public static <T> T reduce(List<T> values, BinaryOperator<T> reducer, T accumulator) {
     return reduceInternal(values, reducer, accumulator);
   }
 
-  private static <T> T reduceInternal(List<T> values, BiFunction<T, T, T> reducer, T accumulator) {
+  private static <T> T reduceInternal(List<T> values, BinaryOperator<T> reducer, T accumulator) {
     if (values.isEmpty()) {
       return accumulator;
     }

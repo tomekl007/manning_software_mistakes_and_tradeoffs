@@ -25,7 +25,7 @@ public class ReduceTest {
   @Test
   public void shouldReduceTenValues() {
     // given
-    List<Integer> input = IntStream.range(1, 10).boxed().collect(Collectors.toList());
+    List<Integer> input = IntStream.rangeClosed(1, 9).boxed().collect(Collectors.toList());
 
     // when
     Integer result = Reduce.reduce(input, (value, accumulator) -> value + accumulator, 0);

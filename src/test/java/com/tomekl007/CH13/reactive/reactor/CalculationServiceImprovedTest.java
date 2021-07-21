@@ -13,7 +13,7 @@ class CalculationServiceImprovedTest {
   public void shouldCalculateNElements() {
     // given
     CalculationServiceImproved calculationService = new CalculationServiceImproved();
-    List<Integer> input = IntStream.range(1, 11).boxed().collect(Collectors.toList());
+    List<Integer> input = IntStream.rangeClosed(1, 10).boxed().collect(Collectors.toList());
     // when
     Flux<Integer> resultFlux = calculationService.calculateForUserIds(input);
     List<Integer> result = resultFlux.collect(Collectors.toList()).block();
