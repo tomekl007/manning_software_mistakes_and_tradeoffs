@@ -23,7 +23,7 @@ public class ReduceTest {
   }
 
   @Test
-  public void shouldReduceTenValues() {
+  public void shouldReduceNineValues() {
     // given
     List<Integer> input = IntStream.rangeClosed(1, 9).boxed().collect(Collectors.toList());
 
