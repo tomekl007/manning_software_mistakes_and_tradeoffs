@@ -37,7 +37,7 @@ public class ReduceTest {
   @Test
   public void shouldStackOverflowForALotOfValues() {
     // given
-    List<Integer> input = IntStream.range(1, 100_000).boxed().collect(Collectors.toList());
+    List<Integer> input = IntStream.range(0, 100_000).boxed().collect(Collectors.toList());
 
     // when
     assertThatThrownBy(() -> Reduce.reduce(input, Integer::sum, 0))
