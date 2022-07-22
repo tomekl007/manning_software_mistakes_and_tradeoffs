@@ -18,7 +18,7 @@ public class AuthResource {
 
   @GET
   @Path("/validate/{token}")
-  public Response getAllPayments(@PathParam("token") String token) {
+  public Response validateToken(@PathParam("token") String token) {
     if (authService.validToken(token)) {
       return Response.ok().build();
     } else {
